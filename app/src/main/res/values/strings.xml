@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MamaNguo</string>
+    <string name="register_label">Sign up</string>
 </resources>
