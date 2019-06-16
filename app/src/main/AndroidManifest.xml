@@ -38,7 +38,7 @@
         </activity>
         <activity
             android:name=".chooseMamaNguo.ChooseMamaNguoActivity"
-            android:label="Pick a MamaNguo"></activity>
+            android:label="@string/pick_laundry_lady"></activity>
     </application>
 
 </manifest>

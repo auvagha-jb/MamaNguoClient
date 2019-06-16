@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">MamaNguo</string>
     <string name="btn_SetLocation">Enter Location</string>
-    <string name="google_maps_api_key">AIzaSyB4ccf06z359cXr_DaggWwraN5i_OKfeh4</string>
 
     <string name="mapViewActLabel">Enter your location</string>
     <string name="enterEstate">Enter your estate name</string>
@@ -9,9 +8,24 @@
     <string name="bill_total_value">Bill total: 0</string>
     <string name="checkoutActLabel">Summary</string>
     <string name="btn_checkout">Make request</string>
-    <string name="find_mamanguo">Find MamaNguo</string>
+    <string name="find_mamanguo">Find Laundry Lady</string>
     <string name="my_history">My History</string>
     <string name="default_subtotal">Subtotal: 0</string>
     <string name="my_location">My location</string>
     <string name="new_subtotal">Subtotal: %d</string>
+    <string name="pick_laundry_lady">Pick a Laundry Lady</string>
+    <string name="google_maps_api_key">AIzaSyB4ccf06z359cXr_DaggWwraN5i_OKfeh4</string>
+    <string name="shirt">Shirts</string>
+    <string name="t_shirt">T-shirts</string>
+    <string name="trousers">Trousers</string>
+    <string name="shorts">Shorts</string>
+    <string name="skirt">Skirts</string>
+    <string name="jeans">Jeans</string>
+    <string name="dresses">Dresses</string>
+    <string name="leather_shoes">Leather Shoes</string>
+    <string name="sport_shoes">Sport Shoes</string>
+    <string name="price_per_pair">Price per pair</string>
+    <string name="price_per_item">Price per item</string>
+    <string name="number">Number</string>
+    <string name="bill_total_toast">Bill total: %d</string>
 </resources>

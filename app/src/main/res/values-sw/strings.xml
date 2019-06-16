@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MamaNguo</string>
+    <string name="btn_SetLocation">"Chagua "</string>
+    <string name="pick_laundry_lady">Chagua mama nguo</string>
+    <string name="my_history">Historia yangu</string>
+    <string name="mapViewActLabel">Chagua eneo lako</string>
+    <string name="find_mamanguo">Pata mama nguo</string>
+    <string name="enterEstate">"Andika jina la eneo "</string>
+    <string name="bill_total_value">Jumla</string>
+    <string name="btn_checkout">Ita mama nguo</string>
+    <string name="checkoutActLabel">Muhtasari</string>
+    <string name="default_subtotal">Jumla: 0</string>
+    <string name="my_location">Eneo langu</string>
+    <string name="new_subtotal">Jumla: %d</string>
+    <string name="t_shirt">T-shirts</string>
+    <string name="dresses">Rinda</string>
+    <string name="jeans">Jeans</string>
+    <string name="leather_shoes">Viatu vya ngozi</string>
+    <string name="price_per_item">Bei</string>
+    <string name="price_per_pair">Bei</string>
+    <string name="shirt">Shati</string>
+    <string name="shorts">Vinyasa</string>
+    <string name="skirt">Sketi</string>
+    <string name="sport_shoes">Viatu vya spoti</string>
+    <string name="google_maps_api_key">AIzaSyB4ccf06z359cXr_DaggWwraN5i_OKfeh4</string>
+    <string name="trousers">Suruali</string>
+    <string name="number">Idadi</string>
+    <string name="bill_total_toast">Jumla: %d</string>
+</resources>

@@ -28,14 +28,13 @@
             android:id="@+id/field_index"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"
             android:visibility="gone" />
 
         <EditText
             android:id="@+id/editText_parent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Number"
+            android:hint="@string/number"
             android:inputType="number" />
 
         <TextView

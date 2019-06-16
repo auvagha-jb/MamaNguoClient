@@ -20,10 +20,14 @@ import java.util.Map;
 
 public class ServicesActivity extends AppCompatActivity implements RecyclerDataAdapter.ServicesSelectedListener {
     private RecyclerView mRecyclerView;
+
+    public Context getmContext() {
+        return mContext;
+    }
+
     private Context mContext;
     private Button button_findMamaNguo;
     private TextView textView_billTotal;
-    public String default_string;
     RecyclerDataAdapter recyclerDataAdapter;
     //Bill calculation
     private int billTotal;
@@ -64,7 +68,6 @@ public class ServicesActivity extends AppCompatActivity implements RecyclerDataA
         mContext = ServicesActivity.this;
         mRecyclerView = findViewById(R.id.recyclerView);
         button_findMamaNguo = findViewById(R.id.button_findMamaNguo);
-        default_string = getString(R.string.default_subtotal);
     }
 
     private void updateOrder(Map<String, Integer> serviceCount, Map<String, Integer> serviceTotal, int billTotal) {
@@ -72,7 +75,7 @@ public class ServicesActivity extends AppCompatActivity implements RecyclerDataA
         orderItems = mapKeyToArray(serviceCount);
         orderQuantity = mapValueToArray(serviceCount);
         orderSubtotal = mapValueToArray(serviceTotal);
-        Toast.makeText(mContext, "Bill total: " + getBillTotal(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(mContext, String.format(getString(R.string.bill_total_toast), getBillTotal()), Toast.LENGTH_SHORT).show();
     }
 
     private void createIntent() {
@@ -107,59 +110,50 @@ public class ServicesActivity extends AppCompatActivity implements RecyclerDataA
         ArrayList<DummyChildDataItem> childDataItems;
         /////////
         childDataItems = new ArrayList<>();
-        childDataItems.add(new DummyChildDataItem("Price per item"));
+        childDataItems.add(new DummyChildDataItem(mContext.getString(R.string.price_per_item)));
         childDataItems.add(new DummyChildDataItem("45"));
-        arrDummyData.add(new DummyParentDataItem("Shirts", childDataItems));
+        arrDummyData.add(new DummyParentDataItem(mContext.getString(R.string.shirt), childDataItems));
         childDataItems = new ArrayList<>();
 
-        childDataItems.add(new DummyChildDataItem("Price per item"));
+        childDataItems.add(new DummyChildDataItem(mContext.getString(R.string.price_per_item)));
         childDataItems.add(new DummyChildDataItem("45"));
-        arrDummyData.add(new DummyParentDataItem("T-shirts", childDataItems));
+        arrDummyData.add(new DummyParentDataItem(mContext.getString(R.string.t_shirt), childDataItems));
         childDataItems = new ArrayList<>();
 
-        childDataItems.add(new DummyChildDataItem("Price per item"));
-        childDataItems.add(new DummyChildDataItem("45"));
-        arrDummyData.add(new DummyParentDataItem("Blouses", childDataItems));
         childDataItems = new ArrayList<>();
-
-        childDataItems.add(new DummyChildDataItem("Price per item"));
-        childDataItems.add(new DummyChildDataItem("45"));
-        arrDummyData.add(new DummyParentDataItem("Shirts", childDataItems));
-        /////////
-        childDataItems = new ArrayList<>();
-        childDataItems.add(new DummyChildDataItem("Price per item"));
+        childDataItems.add(new DummyChildDataItem(mContext.getString(R.string.price_per_item)));
         childDataItems.add(new DummyChildDataItem("55"));
-        arrDummyData.add(new DummyParentDataItem("Trousers", childDataItems));
+        arrDummyData.add(new DummyParentDataItem(mContext.getString(R.string.trousers), childDataItems));
         /////////
         childDataItems = new ArrayList<>();
-        childDataItems.add(new DummyChildDataItem("Price per item"));
+        childDataItems.add(new DummyChildDataItem(mContext.getString(R.string.price_per_item)));
         childDataItems.add(new DummyChildDataItem("55"));
-        arrDummyData.add(new DummyParentDataItem("Shorts", childDataItems));
+        arrDummyData.add(new DummyParentDataItem(mContext.getString(R.string.shorts), childDataItems));
         /////////
         childDataItems = new ArrayList<>();
-        childDataItems.add(new DummyChildDataItem("Price per item"));
+        childDataItems.add(new DummyChildDataItem(mContext.getString(R.string.price_per_item)));
         childDataItems.add(new DummyChildDataItem("55"));
-        arrDummyData.add(new DummyParentDataItem("Skirts", childDataItems));
+        arrDummyData.add(new DummyParentDataItem(mContext.getString(R.string.skirt), childDataItems));
         /////////
         childDataItems = new ArrayList<>();
-        childDataItems.add(new DummyChildDataItem("Price per item"));
+        childDataItems.add(new DummyChildDataItem(mContext.getString(R.string.price_per_item)));
         childDataItems.add(new DummyChildDataItem("100"));
-        arrDummyData.add(new DummyParentDataItem("Jeans", childDataItems));
+        arrDummyData.add(new DummyParentDataItem(mContext.getString(R.string.jeans), childDataItems));
         /////////
         childDataItems = new ArrayList<>();
-        childDataItems.add(new DummyChildDataItem("Price per item"));
+        childDataItems.add(new DummyChildDataItem(mContext.getString(R.string.price_per_item)));
         childDataItems.add(new DummyChildDataItem("55"));
-        arrDummyData.add(new DummyParentDataItem("Dresses", childDataItems));
+        arrDummyData.add(new DummyParentDataItem(mContext.getString(R.string.dresses), childDataItems));
         /////////
         childDataItems = new ArrayList<>();
-        childDataItems.add(new DummyChildDataItem("Price per pair"));
+        childDataItems.add(new DummyChildDataItem(mContext.getString(R.string.price_per_pair)));
         childDataItems.add(new DummyChildDataItem("30"));
-        arrDummyData.add(new DummyParentDataItem("Leather Shoes", childDataItems));
+        arrDummyData.add(new DummyParentDataItem(mContext.getString(R.string.leather_shoes), childDataItems));
         /////////
         childDataItems = new ArrayList<>();
-        childDataItems.add(new DummyChildDataItem("Price per pair"));
+        childDataItems.add(new DummyChildDataItem(mContext.getString(R.string.price_per_pair)));
         childDataItems.add(new DummyChildDataItem("90"));
-        arrDummyData.add(new DummyParentDataItem("Sport Shoes", childDataItems));
+        arrDummyData.add(new DummyParentDataItem(mContext.getString(R.string.sport_shoes), childDataItems));
         /////////
         return arrDummyData;
     }

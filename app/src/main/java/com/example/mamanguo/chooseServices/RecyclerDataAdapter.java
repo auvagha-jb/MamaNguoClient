@@ -26,17 +26,11 @@ import java.util.Set;
 class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapter.MyViewHolder> {
     //Custom interface to keep track of the changes
     private ServicesSelectedListener mServicesSelectedListener;
-
+    private Context mContext;
     //Data structures to hold the activity data
     private ArrayList<DummyParentDataItem> dummyParentDataItems;
     private Map<String, Integer> serviceCount = new HashMap<>();
     private Map<String, Integer> serviceTotal = new HashMap<>();
-
-    //Bill calculation
-    /*private int billTotal;
-    private String[] orderItems;
-    private ArrayList<Integer> orderQuantity;
-    private ArrayList<Integer> orderSubtotal;*/
 
     RecyclerDataAdapter(ArrayList<DummyParentDataItem> dummyParentDataItems, ServicesSelectedListener servicesSelectedListener) {
         this.dummyParentDataItems = dummyParentDataItems;
@@ -89,6 +83,7 @@ class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapter.MyVie
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         final View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_parent_child_listing, parent, false);
+        mContext = parent.getContext();
         return new MyViewHolder(itemView, mServicesSelectedListener);
     }
 
@@ -99,7 +94,7 @@ class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapter.MyVie
         holder.textView_parentName.setText(dummyParentDataItem.getParentName());
         holder.field_value.setText(text);
         //holder.field_index.setText(Integer.toString(position));
-        holder.subtotal_value.setText(new ServicesActivity().default_string);
+        holder.subtotal_value.setText(mContext.getString(R.string.default_subtotal));
 
         int noOfChildTextViews = holder.linearLayout_childItems.getChildCount();
         for (int index = 0; index < noOfChildTextViews; index++) {
@@ -153,7 +148,6 @@ class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapter.MyVie
             editText_parent = itemView.findViewById(R.id.editText_parent);
             linearLayout_childItems = itemView.findViewById(R.id.ll_child_items);
             linearLayout_childItems.setVisibility(View.GONE);
-            int size = getItemCount();
 
             int intMaxNoOfChild = 0;
             for (int index = 0; index < dummyParentDataItems.size(); index++) {
