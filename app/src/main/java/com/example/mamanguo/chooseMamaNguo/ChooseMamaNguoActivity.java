@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -14,19 +15,21 @@ import com.example.mamanguo.R;
 import com.example.mamanguo.RetroFit.MainActivity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
-public class DynamicRecyclerActivity extends AppCompatActivity {
+public class ChooseMamaNguoActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private Button btn_history;
     private Context mContext;
     private RecyclerDataAdapter recyclerDataAdapter;
     ArrayList<DummyParentDataItem> listData;
+    private static final String TAG = ChooseMamaNguoActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dynamic_recycler_find);
-        mContext = DynamicRecyclerActivity.this;
+        setContentView(R.layout.activity_choose_mamanguo);
+        mContext = ChooseMamaNguoActivity.this;
         mRecyclerView = findViewById(R.id.recyclerView);
         btn_history = findViewById(R.id.button_viewHistory);
         listData = getDummyDataToPass();
@@ -35,6 +38,10 @@ public class DynamicRecyclerActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(recyclerDataAdapter);
         mRecyclerView.setHasFixedSize(true);
 
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        String[] items = extras.getStringArray("ORDER_ITEMS");
+        Log.d(TAG, "onCreate: " + Arrays.toString(items));
 
         /* On click listeners: */
         btn_history.setOnClickListener(new View.OnClickListener() {
@@ -69,5 +76,6 @@ public class DynamicRecyclerActivity extends AppCompatActivity {
         /////////
         return arrDummyData;
     }
+
 
 }

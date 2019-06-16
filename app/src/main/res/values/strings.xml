@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">MamaNguo</string>
+    <string name="btn_SetLocation">Enter Location</string>
+    <string name="google_maps_api_key">AIzaSyB4ccf06z359cXr_DaggWwraN5i_OKfeh4</string>
+
+    <string name="mapViewActLabel">Enter your location</string>
+    <string name="enterEstate">Enter your estate name</string>
+
+    <string name="bill_total_value">Bill total: 0</string>
+    <string name="checkoutActLabel">Summary</string>
+    <string name="btn_checkout">Make request</string>
+    <string name="find_mamanguo">Find MamaNguo</string>
+    <string name="my_history">My History</string>
+    <string name="default_subtotal">Subtotal: 0</string>
+    <string name="my_location">My location</string>
+    <string name="new_subtotal">Subtotal: %d</string>
 </resources>

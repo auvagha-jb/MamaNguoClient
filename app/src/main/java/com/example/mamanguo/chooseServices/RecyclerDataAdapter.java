@@ -1,6 +1,7 @@
 package com.example.mamanguo.chooseServices;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -17,31 +18,88 @@ import android.widget.Toast;
 import com.example.mamanguo.R;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 
 class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapter.MyViewHolder> {
+    //Custom interface to keep track of the changes
+    private ServicesSelectedListener mServicesSelectedListener;
+
+    //Data structures to hold the activity data
     private ArrayList<DummyParentDataItem> dummyParentDataItems;
-    private static int[] bill_total;
+    private Map<String, Integer> serviceCount = new HashMap<>();
+    private Map<String, Integer> serviceTotal = new HashMap<>();
 
-    RecyclerDataAdapter(ArrayList<DummyParentDataItem> dummyParentDataItems) {
+    //Bill calculation
+    /*private int billTotal;
+    private String[] orderItems;
+    private ArrayList<Integer> orderQuantity;
+    private ArrayList<Integer> orderSubtotal;*/
+
+    RecyclerDataAdapter(ArrayList<DummyParentDataItem> dummyParentDataItems, ServicesSelectedListener servicesSelectedListener) {
         this.dummyParentDataItems = dummyParentDataItems;
+        this.mServicesSelectedListener = servicesSelectedListener;
+    }
+
+    //e.g. Shirts: 2
+    private void setServiceCount(String item, int quantity) {
+        //To eliminate possibility of having duplicate key entries
+        if (this.serviceCount.containsKey(item)) {
+            this.serviceCount.remove(item);
+        }
+        this.serviceCount.put(item, quantity);
+    }
+
+    private Map<String, Integer> getServiceCount() {
+        return this.serviceCount;
+    }
+
+    //Shirts: sh. 255
+    private void setServiceTotal(String item, int subtotal) {
+        //To eliminate possibility of having duplicate key entries
+        if (this.serviceTotal.containsKey(item)) {
+            this.serviceTotal.remove(item);
+        }
+        this.serviceTotal.put(item, subtotal);
+    }
+
+    private Map<String, Integer> getServiceTotal() {
+        return this.serviceTotal;
+    }
+
+    private void removeItem(String item) {
+        if (this.serviceCount.containsKey(item)) this.serviceCount.remove(item);
+        if (this.serviceTotal.containsKey(item)) this.serviceTotal.remove(item);
+    }
+
+    private int getBillTotal() {
+        int bill_total = 0;
+        //Returns set view
+        Set<Map.Entry<String, Integer>> set = this.serviceTotal.entrySet();
+        for (Map.Entry<String, Integer> me : set) {
+            bill_total += me.getValue();
+        }
+        return bill_total;
+    }
+
+
+    @NonNull
+    @Override
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        final View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_parent_child_listing, parent, false);
+        return new MyViewHolder(itemView, mServicesSelectedListener);
     }
 
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_parent_child_listing, parent, false);
-        return new MyViewHolder(itemView);
-    }
-
-    @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         DummyParentDataItem dummyParentDataItem = dummyParentDataItems.get(position);
         String text = dummyParentDataItems.get(position).getChildDataItems().get(1).getChildName();
         holder.textView_parentName.setText(dummyParentDataItem.getParentName());
         holder.field_value.setText(text);
-        holder.field_index.setText(Integer.toString(position));
-        holder.subtotal_value.setText("Subtotal: 0");
+        //holder.field_index.setText(Integer.toString(position));
+        holder.subtotal_value.setText(new ServicesActivity().default_string);
 
         int noOfChildTextViews = holder.linearLayout_childItems.getChildCount();
         for (int index = 0; index < noOfChildTextViews; index++) {
@@ -67,7 +125,11 @@ class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapter.MyVie
         return dummyParentDataItems.size();
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public interface ServicesSelectedListener {
+        void onServicesUpdated(Map<String, Integer> serviceCount, Map<String, Integer> serviceTotal, int billTotal);
+    }
+
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private Context context;
         private TextView textView_parentName;
         private TextView field_value;
@@ -77,8 +139,12 @@ class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapter.MyVie
         private LinearLayout linearLayout_childItems;
         private String TAG = this.getClass().getSimpleName();
 
-        public MyViewHolder(View itemView) {
+        //My custom interface to get that keeps track of the values entered
+        ServicesSelectedListener servicesSelectedListener;
+
+        public MyViewHolder(View itemView, final ServicesSelectedListener servicesSelectedListener) {
             super(itemView);
+            this.servicesSelectedListener = servicesSelectedListener;
             context = itemView.getContext();
             textView_parentName = itemView.findViewById(R.id.tv_parentName);
             field_value = itemView.findViewById(R.id.field_value);
@@ -88,8 +154,6 @@ class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapter.MyVie
             linearLayout_childItems = itemView.findViewById(R.id.ll_child_items);
             linearLayout_childItems.setVisibility(View.GONE);
             int size = getItemCount();
-            bill_total = new int[size];
-            initializeArray(bill_total);
 
             int intMaxNoOfChild = 0;
             for (int index = 0; index < dummyParentDataItems.size(); index++) {
@@ -116,16 +180,22 @@ class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapter.MyVie
 
                 @Override
                 public void onTextChanged(CharSequence editText_value, int start, int before, int count) {
+                    //String index = field_index.getText().toString();
                     int length = editText_value.toString().length();
-                    int index = Integer.parseInt(field_index.getText().toString());
-                    int unit_price = Integer.parseInt(field_value.getText().toString());
-                    int no_items = length == 0 ? 0 : Integer.parseInt(editText_value.toString());
-                    int subtotal = unit_price * no_items;
-                    subtotal_value.setText("Subtotal: " + subtotal);
-                    bill_total[index] = subtotal;
+                    int unitPrice = Integer.parseInt(field_value.getText().toString());
+                    int noItems = length == 0 ? 0 : Integer.parseInt(editText_value.toString());
+                    int subtotal = unitPrice * noItems;
+
+                    String item = textView_parentName.getText().toString();
+                    subtotal_value.setText(String.format(context.getString(R.string.new_subtotal), subtotal));
+                    setServiceCount(item, noItems);
+                    setServiceTotal(item, subtotal);
                     int currentTotal = getBillTotal();
 
-                    Toast.makeText(context, "Bill total: "+currentTotal, Toast.LENGTH_SHORT).show();
+                    //Remove item from order if
+                    if (noItems == 0) removeItem(item);
+                    //Update the info
+                    servicesSelectedListener.onServicesUpdated(getServiceCount(), getServiceTotal(), currentTotal);
                 }
 
                 @Override
@@ -147,20 +217,6 @@ class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapter.MyVie
                 Toast.makeText(context, "" + textViewClicked.getText().toString(), Toast.LENGTH_SHORT).show();
             }
         }
-
-        public int getBillTotal() {
-            int total = 0;
-            for (int bill_item : bill_total) {
-                total += bill_item;
-            }
-            return total;
-        }
-
-        public void initializeArray(int bill_total[]) {
-            for (int i = 0; i < bill_total.length; i++) {
-                bill_total[i] = 0;
-            }
-        }
-
     }
+
 }

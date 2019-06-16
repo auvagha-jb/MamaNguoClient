@@ -7,7 +7,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_margin="@dimen/cardView_margin"
     app:cardCornerRadius="4dp"
-    tools:context=".chooseMamaNguo.DynamicRecyclerActivity">
+    tools:context=".chooseMamaNguo.ChooseMamaNguoActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,7 +32,6 @@
             android:id="@+id/field_value"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"
             android:visibility="gone" />
 
 

@@ -45,9 +45,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.mamanguo.Constants.ERROR_DIALOG_REQUEST;
-import static com.example.mamanguo.Constants.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION;
-import static com.example.mamanguo.Constants.PERMISSIONS_REQUEST_ENABLE_GPS;
+import static com.example.mamanguo.helpers.Constants.ERROR_DIALOG_REQUEST;
+import static com.example.mamanguo.helpers.Constants.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION;
+import static com.example.mamanguo.helpers.Constants.PERMISSIONS_REQUEST_ENABLE_GPS;
 
 public class MapViewActivity extends AppCompatActivity implements OnMapReadyCallback {
     private static final String TAG = "MapViewActivity";
@@ -177,14 +177,18 @@ public class MapViewActivity extends AppCompatActivity implements OnMapReadyCall
                         if (task.isSuccessful()) {
                             Location currentLocation = (Location) task.getResult();
 
-                            LatLng coordinates = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-                            moveCamera(coordinates, DEFAULT_ZOOM, "My Location");
+                            if (currentLocation != null) {
+                                LatLng coordinates = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+                                moveCamera(coordinates, DEFAULT_ZOOM, "My Location");
 
-                            //Set this as mu location
-                            searchBar.setText("My location");
-                            setLocation("Current Location");
-                            setCoordinates(coordinates);
-                            Log.d(TAG, "onComplete: Found location " + coordinates);
+                                //Set this as my location
+                                searchBar.setText(MapViewActivity.this.getString(R.string.my_location));
+                                setLocation("Current Location");
+                                setCoordinates(coordinates);
+                                Log.d(TAG, "onComplete: Found location " + coordinates);
+                            } else {
+                                Toast.makeText(MapViewActivity.this, "Finding location...", Toast.LENGTH_SHORT).show();
+                            }
 
                         } else {
                             Log.d(TAG, "onComplete: Location is null");
@@ -287,7 +291,6 @@ public class MapViewActivity extends AppCompatActivity implements OnMapReadyCall
             getDeviceLocation();
             googleMap.setMyLocationEnabled(true);
             init();
-
         }
     }
 

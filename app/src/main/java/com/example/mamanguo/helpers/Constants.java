@@ -1,4 +1,4 @@
-package com.example.mamanguo;
+package com.example.mamanguo.helpers;
 
 public class Constants {
 
