@@ -11,7 +11,6 @@ public class RetroUsers {
 
     public RetroUsers(String name) {
         this.name = name;
-
     }
 
 //Retrieve the data using setter/getter methods//

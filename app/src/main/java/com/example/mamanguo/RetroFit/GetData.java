@@ -8,7 +8,6 @@ import retrofit2.http.GET;
 public interface GetData {
 
 //Specify the request type and pass the relative URL//
-
     @GET("/users")
 
 //Wrap the response in a Call object with the type of the expected result//

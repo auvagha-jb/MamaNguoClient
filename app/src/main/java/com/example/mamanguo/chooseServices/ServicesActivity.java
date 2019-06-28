@@ -12,7 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mamanguo.R;
-import com.example.mamanguo.chooseMamaNguo.ChooseMamaNguoActivity;
+import com.example.mamanguo.getAvailableMamaNguo.MainActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -84,7 +84,7 @@ public class ServicesActivity extends AppCompatActivity implements RecyclerDataA
         extras.putIntegerArrayList("ORDER_QUANTITY", orderQuantity);
         extras.putIntegerArrayList("ORDER_SUBTOTAL", orderSubtotal);
         extras.putInt("BILL_TOTAL", getBillTotal());
-        Intent intent = new Intent(mContext, ChooseMamaNguoActivity.class);
+        Intent intent = new Intent(mContext, MainActivity.class);
         intent.putExtras(extras);
         startActivity(intent);
     }

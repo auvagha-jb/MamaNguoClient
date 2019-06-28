@@ -22,6 +22,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_api_key" />
 
+        <activity android:name=".getAvailableMamaNguo.MainActivity"></activity>
         <activity android:name=".RetroFit.MainActivity"></activity>
         <activity android:name=".MainActivity"></activity>
         <activity

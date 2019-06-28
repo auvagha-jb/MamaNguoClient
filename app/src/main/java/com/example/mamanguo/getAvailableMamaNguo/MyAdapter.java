@@ -1,9 +1,9 @@
-package com.example.mamanguo.RetroFit;
+package com.example.mamanguo.getAvailableMamaNguo;
 
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
 import com.example.mamanguo.R;
@@ -14,10 +14,9 @@ import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.CustomViewHolder> {
 
-    private List<RetroUsers> dataList;
+    private List<FetchMamaNguo> dataList;
 
-    public MyAdapter(List<RetroUsers> dataList){
-
+    public MyAdapter(List<FetchMamaNguo> dataList){
         this.dataList = dataList;
     }
 
@@ -49,7 +48,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.CustomViewHolder> 
 //Set the data//
 
     public void onBindViewHolder(CustomViewHolder holder, int position) {
-        holder.textUser.setText(dataList.get(position).getUser());
+        holder.textUser.setText(dataList.get(position).getFullName());
 
     }
 
