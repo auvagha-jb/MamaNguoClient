@@ -17,29 +17,36 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_api_key" />
 
+
+        <activity
+            android:name=".chooseMamaNguo.ChooseMamaNguoActivity"
+            android:label="@string/pick_laundry_lady"></activity>
+
+        <activity android:name=".chooseServices.ServicesActivity"></activity>
+
         <activity android:name=".getAvailableMamaNguo.MainActivity"></activity>
+
         <activity android:name=".RetroFit.MainActivity"></activity>
-        <activity android:name=".MainActivity"></activity>
+
         <activity
             android:name=".ui.CheckoutActivity"
             android:label="@string/checkoutActLabel"></activity>
-        <activity
-            android:name=".ui.MapViewActivity"
-            android:label="@string/mapViewActLabel"></activity>
-        <activity android:name=".chooseServices.ServicesActivity">
+        <activity android:name=".ui.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".chooseMamaNguo.ChooseMamaNguoActivity"
-            android:label="@string/pick_laundry_lady"></activity>
+            android:name=".ui.MapViewActivity"
+            android:label="@string/mapViewActLabel"></activity>
+        <activity android:name=".ui.PinVerifyActivity"></activity>
+        <activity android:name=".ui.SignUpActivity"></activity>
+
     </application>
 
 </manifest>

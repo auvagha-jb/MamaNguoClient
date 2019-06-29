@@ -28,4 +28,5 @@
     <string name="price_per_item">Price per item</string>
     <string name="number">Number</string>
     <string name="bill_total_toast">Bill total: %d</string>
+    <string name="enter_your_verification_pin">Enter your verification pin</string>
 </resources>

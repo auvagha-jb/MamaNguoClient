@@ -5,4 +5,6 @@
     <dimen name="checkout_textSize">24sp</dimen>
     <dimen name="checkout_sideMargin">25dp</dimen>
     <dimen name="checkout_topMargin">30dp</dimen>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
 </resources>

@@ -27,4 +27,5 @@
     <string name="trousers">Suruali</string>
     <string name="number">Idadi</string>
     <string name="bill_total_toast">Jumla: %d</string>
+    <string name="enter_your_verification_pin">Andika namba ya siri</string>
 </resources>
