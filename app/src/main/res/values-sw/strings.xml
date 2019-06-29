@@ -28,4 +28,11 @@
     <string name="number">Idadi</string>
     <string name="bill_total_toast">Jumla: %d</string>
     <string name="enter_your_verification_pin">Andika namba ya siri</string>
+    <string name="phone_number_hint">123 456 789</string>
+    <string name="enter_your_mobile_number">Andika nambari ya simu</string>
+    <string name="get_verification_code">Pata nambari ya thibitisho</string>
+    <string name="code_resend">Didn\'t receive the code? Click here to resend</string>
+    <string name="first_name_label">Jina la kwanza</string>
+    <string name="last_name_label">Jina la mwisho</string>
+    <string name="email_address_label">Email Address</string>
 </resources>

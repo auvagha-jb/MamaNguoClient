@@ -1,4 +1,4 @@
-package com.example.mamanguo.ui;
+package com.example.mamanguo.Register;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -12,28 +12,39 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mamanguo.R;
+import com.example.mamanguo.ui.LoginActivity;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class SignUpActivity extends AppCompatActivity {
     private static final String TAG = "SignUpActivity";
 
-    @BindView(R.id.input_name) EditText _nameText;
-    @BindView(R.id.input_address) EditText _addressText;
-    @BindView(R.id.input_email) EditText _emailText;
-    @BindView(R.id.input_mobile) EditText _mobileText;
-    @BindView(R.id.input_password) EditText _passwordText;
-    @BindView(R.id.input_reEnterPassword) EditText _reEnterPasswordText;
-    @BindView(R.id.btn_signup) Button _signupButton;
-    @BindView(R.id.link_login) TextView _loginLink;
-    
+    EditText _nameText;
+    EditText _addressText;
+    EditText _emailText;
+    EditText _mobileText;
+    EditText _passwordText;
+    EditText _reEnterPasswordText;
+    Button _signupButton;
+    TextView _loginLink;
+
+    private void initComponents() {
+        _nameText = findViewById(R.id.input_fname);
+        _addressText = findViewById(R.id.input_email_address);
+        _emailText = findViewById(R.id.input_email);
+        _mobileText = findViewById(R.id.input_mobile);
+        _passwordText = findViewById(R.id.input_password);
+        _reEnterPasswordText = findViewById(R.id.input_reEnterPassword);
+        _signupButton = findViewById(R.id.btn_signup);
+        _loginLink = findViewById(R.id.link_login);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         ButterKnife.bind(this);
-
+        initComponents();
         _signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,9 +56,9 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Finish the registration screen and return to the Login activity
-                Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
-                finish();
+                //finish();
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
@@ -78,15 +89,12 @@ public class SignUpActivity extends AppCompatActivity {
 
         // TODO: Implement your own signup logic here.
 
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        // On complete call either onSignupSuccess or onSignupFailed
-                        // depending on success
-                        onSignupSuccess();
-                        // onSignupFailed();
-                        progressDialog.dismiss();
-                    }
+        new android.os.Handler().postDelayed(() -> {
+                    // On complete call either onSignupSuccess or onSignupFailed
+                    // depending on success
+                    onSignupSuccess();
+                    // onSignupFailed();
+                    progressDialog.dismiss();
                 }, 3000);
     }
 
@@ -94,7 +102,7 @@ public class SignUpActivity extends AppCompatActivity {
     public void onSignupSuccess() {
         _signupButton.setEnabled(true);
         setResult(RESULT_OK, null);
-        finish();
+        //finish();
     }
 
     public void onSignupFailed() {
@@ -143,7 +151,7 @@ public class SignUpActivity extends AppCompatActivity {
         }
 
         if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
-            _passwordText.setError("between 4 and 10 alphanumeric characters");
+            _passwordText.setError("between 4 and 10 alphanumeric characterFs");
             valid = false;
         } else {
             _passwordText.setError(null);

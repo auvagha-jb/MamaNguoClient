@@ -26,11 +26,24 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp">
-            <EditText android:id="@+id/input_name"
+            <EditText android:id="@+id/input_fname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
-                android:hint="Name" />
+                android:hint="@string/first_name_label" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Name Label -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+            <EditText android:id="@+id/input_lname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:hint="@string/last_name_label" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Address Label -->
@@ -39,26 +52,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp">
-            <EditText android:id="@+id/input_address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPostalAddress"
-                android:hint="Address" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-
-        <!--  Email Label -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
-            <EditText android:id="@+id/input_email"
+            <EditText android:id="@+id/input_email_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
-                android:hint="Email" />
+                android:hint="@string/email_address_label" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -117,7 +115,8 @@
             android:layout_marginBottom="24dp"
             android:text="Already a member? Login"
             android:gravity="center"
-            android:textSize="16dip"/>
+            android:textSize="16sp"/>
+
 
     </LinearLayout>
 </ScrollView>

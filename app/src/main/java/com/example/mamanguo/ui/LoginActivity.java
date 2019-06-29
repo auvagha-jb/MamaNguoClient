@@ -13,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mamanguo.R;
+import com.example.mamanguo.Register.EnterMobileActivity;
+import com.example.mamanguo.Register.PinVerifyActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,9 +47,9 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Start the Signup activity
-                Intent intent = new Intent(getApplicationContext(), PinVerifyActivity.class);
+                Intent intent = new Intent(getApplicationContext(), EnterMobileActivity.class);
                 startActivityForResult(intent, REQUEST_SIGNUP);
-                finish();
+                //finish();
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
@@ -93,7 +95,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 // TODO: Implement successful signup logic here
                 // By default we just finish the Activity and log them in automatically
-                this.finish();
+                //this.finish();
             }
         }
     }
@@ -106,7 +108,7 @@ public class LoginActivity extends AppCompatActivity {
 */
     public void onLoginSuccess() {
         _loginButton.setEnabled(true);
-        finish();
+        //finish();
     }
 
     public void onLoginFailed() {

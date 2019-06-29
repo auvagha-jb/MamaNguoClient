@@ -14,6 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -21,31 +22,30 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_api_key" />
 
-
         <activity
             android:name=".chooseMamaNguo.ChooseMamaNguoActivity"
-            android:label="@string/pick_laundry_lady"></activity>
+            android:label="@string/pick_laundry_lady" />
+        <activity android:name=".chooseServices.ServicesActivity" />
+        <activity android:name=".getAvailableMamaNguo.MainActivity" />
 
-        <activity android:name=".chooseServices.ServicesActivity"></activity>
+        <activity android:name=".Register.PinVerifyActivity" />
+        <activity android:name=".Register.EnterMobileActivity"></activity>
+        <activity android:name=".Register.SignUpActivity" />
 
-        <activity android:name=".getAvailableMamaNguo.MainActivity"></activity>
-
-        <activity android:name=".RetroFit.MainActivity"></activity>
-
+        <activity android:name=".RetroFit.MainActivity" />
         <activity
             android:name=".ui.CheckoutActivity"
-            android:label="@string/checkoutActLabel"></activity>
+            android:label="@string/checkoutActLabel" />
         <activity android:name=".ui.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".ui.MapViewActivity"
-            android:label="@string/mapViewActLabel"></activity>
-        <activity android:name=".ui.PinVerifyActivity"></activity>
-        <activity android:name=".ui.SignUpActivity"></activity>
+            android:label="@string/mapViewActLabel" />
 
     </application>
 

@@ -29,4 +29,11 @@
     <string name="number">Number</string>
     <string name="bill_total_toast">Bill total: %d</string>
     <string name="enter_your_verification_pin">Enter your verification pin</string>
+    <string name="phone_number_hint">12 345 6789</string>
+    <string name="enter_your_mobile_number">Enter your mobile number</string>
+    <string name="get_verification_code">Get verification code</string>
+    <string name="code_resend">Didn\'t receive the code? Click here to resend</string>
+    <string name="first_name_label">First Name</string>
+    <string name="last_name_label">Last name</string>
+    <string name="email_address_label">Email Address</string>
 </resources>
