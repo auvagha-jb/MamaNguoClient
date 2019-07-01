@@ -1,10 +1,9 @@
-package com.example.mamanguo.RetroFit;
+package com.example.mamanguo.Retrofit;
 
 import com.example.mamanguo.helpers.Constants;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
 public class RetrofitClient {
 
     private static Retrofit retrofit;
@@ -17,7 +16,7 @@ public class RetrofitClient {
 
     public static Retrofit getRetrofitInstance() {
         if (retrofit == null) {
-            retrofit = new retrofit2.Retrofit.Builder()
+            retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     //Add the converter//
                     .addConverterFactory(GsonConverterFactory.create())

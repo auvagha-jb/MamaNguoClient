@@ -14,9 +14,9 @@ import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.CustomViewHolder> {
 
-    private List<FetchMamaNguo> dataList;
+    private List<MamaNguo> dataList;
 
-    public MyAdapter(List<FetchMamaNguo> dataList){
+    public MyAdapter(List<MamaNguo> dataList){
         this.dataList = dataList;
     }
 

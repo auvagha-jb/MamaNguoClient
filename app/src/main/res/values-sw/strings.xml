@@ -35,4 +35,9 @@
     <string name="first_name_label">Jina la kwanza</string>
     <string name="last_name_label">Jina la mwisho</string>
     <string name="email_address_label">Email Address</string>
+    <string name="password_label">Password</string>
+    <string name="re_enter_password">Re-enter Password</string>
+    <string name="login_link_label">Already a member? Login</string>
+    <string name="logo_text">Logo</string>
+    <string name="no_account_label">No account yet? Create one</string>
 </resources>

@@ -1,41 +1,40 @@
 package com.example.mamanguo.Register;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mamanguo.R;
+import com.example.mamanguo.getAvailableMamaNguo.MainActivity;
 import com.example.mamanguo.ui.LoginActivity;
+
+import java.util.Objects;
 
 import butterknife.ButterKnife;
 
 public class SignUpActivity extends AppCompatActivity {
     private static final String TAG = "SignUpActivity";
 
-    EditText _nameText;
-    EditText _addressText;
-    EditText _emailText;
-    EditText _mobileText;
-    EditText _passwordText;
-    EditText _reEnterPasswordText;
-    Button _signupButton;
+    EditText firstNameText;
+    EditText lastNameText;
+    EditText emailText;
+    EditText passwordText;
+    EditText reEnterPasswordText;
+    Button signUpButton;
     TextView _loginLink;
 
     private void initComponents() {
-        _nameText = findViewById(R.id.input_fname);
-        _addressText = findViewById(R.id.input_email_address);
-        _emailText = findViewById(R.id.input_email);
-        _mobileText = findViewById(R.id.input_mobile);
-        _passwordText = findViewById(R.id.input_password);
-        _reEnterPasswordText = findViewById(R.id.input_reEnterPassword);
-        _signupButton = findViewById(R.id.btn_signup);
+        firstNameText = findViewById(R.id.input_firstName);
+        lastNameText = findViewById(R.id.input_lastName);
+        emailText = findViewById(R.id.input_email);
+        passwordText = findViewById(R.id.input_password);
+        reEnterPasswordText = findViewById(R.id.input_reEnterPassword);
+        signUpButton = findViewById(R.id.btn_signUp);
         _loginLink = findViewById(R.id.link_login);
     }
 
@@ -45,125 +44,90 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signup);
         ButterKnife.bind(this);
         initComponents();
-        _signupButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signup();
-            }
-        });
-
-        _loginLink.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Finish the registration screen and return to the Login activity
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(intent);
-                //finish();
-                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
-            }
-        });
+        attachListeners();
     }
 
-    public void signup() {
-        Log.d(TAG, "Signup");
+    public void signUp() {
+        Log.d(TAG, "signUp");
+        String firstName = firstNameText.getText().toString();
+        String lastName = lastNameText.getText().toString();
+        String email = emailText.getText().toString();
+        String password = passwordText.getText().toString();
 
-        if (!validate()) {
-            onSignupFailed();
-            return;
+        if (validate()) {
+            createIntent(firstName, lastName, email, password);
         }
 
-        _signupButton.setEnabled(false);
+    }
 
-        final ProgressDialog progressDialog = new ProgressDialog(SignUpActivity.this,
-                R.style.AppTheme_Dark_Dialog);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Creating Account...");
-        progressDialog.show();
-
-        String name = _nameText.getText().toString();
-        String address = _addressText.getText().toString();
-        String email = _emailText.getText().toString();
-        String mobile = _mobileText.getText().toString();
-        String password = _passwordText.getText().toString();
-        String reEnterPassword = _reEnterPasswordText.getText().toString();
-
-        // TODO: Implement your own signup logic here.
-
-        new android.os.Handler().postDelayed(() -> {
-                    // On complete call either onSignupSuccess or onSignupFailed
-                    // depending on success
-                    onSignupSuccess();
-                    // onSignupFailed();
-                    progressDialog.dismiss();
-                }, 3000);
+    private void createIntent(String firstName, String lastName, String email,
+                              String password) {
+        Bundle extras = new Bundle();
+        extras.putString("firstName", firstName);
+        extras.putString("lastName", lastName);
+        extras.putString("email", email);
+        extras.putString("password", password);
+        Intent intent = new Intent(SignUpActivity.this, EnterMobileActivity.class);
+        intent.putExtras(extras);
+        startActivity(intent);
     }
 
 
-    public void onSignupSuccess() {
-        _signupButton.setEnabled(true);
-        setResult(RESULT_OK, null);
-        //finish();
-    }
-
-    public void onSignupFailed() {
-        Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
-
-        _signupButton.setEnabled(true);
-    }
-
-    public boolean validate() {
+    private boolean validate() {
         boolean valid = true;
 
-        String name = _nameText.getText().toString();
-        String address = _addressText.getText().toString();
-        String email = _emailText.getText().toString();
-        String mobile = _mobileText.getText().toString();
-        String password = _passwordText.getText().toString();
-        String reEnterPassword = _reEnterPasswordText.getText().toString();
+        String firstName = firstNameText.getText().toString();
+        String lastName = lastNameText.getText().toString();
+        String email = emailText.getText().toString();
+        String password = passwordText.getText().toString();
+        String reEnterPassword = reEnterPasswordText.getText().toString();
 
-        if (name.isEmpty() || name.length() < 3) {
-            _nameText.setError("at least 3 characters");
+        if (firstName.isEmpty()) {
+            firstNameText.setError("First name is required");
             valid = false;
         } else {
-            _nameText.setError(null);
+            firstNameText.setError(null);
         }
 
-        if (address.isEmpty()) {
-            _addressText.setError("Enter Valid Address");
+        if (lastName.isEmpty()) {
+            lastNameText.setError("First name is required");
             valid = false;
         } else {
-            _addressText.setError(null);
+            lastNameText.setError(null);
+        }
+
+        if (!email.isEmpty() && !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            emailText.setError("Enter a valid email address");
+            valid = false;
+        } else {
+            emailText.setError(null);
         }
 
 
-        if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            _emailText.setError("enter a valid email address");
+        if (password.isEmpty() || password.length() < 6 || password.length() > 10) {
+            passwordText.setError("between 4 and 10 alphanumeric characters");
             valid = false;
         } else {
-            _emailText.setError(null);
-        }
-
-        if (mobile.isEmpty() || mobile.length()!=10) {
-            _mobileText.setError("Enter Valid Mobile Number");
-            valid = false;
-        } else {
-            _mobileText.setError(null);
-        }
-
-        if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
-            _passwordText.setError("between 4 and 10 alphanumeric characterFs");
-            valid = false;
-        } else {
-            _passwordText.setError(null);
+            passwordText.setError(null);
         }
 
         if (reEnterPassword.isEmpty() || reEnterPassword.length() < 4 || reEnterPassword.length() > 10 || !(reEnterPassword.equals(password))) {
-            _reEnterPasswordText.setError("Password Do not match");
+            reEnterPasswordText.setError("Password Do not match");
             valid = false;
         } else {
-            _reEnterPasswordText.setError(null);
+            reEnterPasswordText.setError(null);
         }
 
         return valid;
+    }
+
+    private void attachListeners() {
+        signUpButton.setOnClickListener(v -> signUp());
+        _loginLink.setOnClickListener(v -> {
+            // Finish the registration screen and return to the Login activity
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+        });
     }
 }

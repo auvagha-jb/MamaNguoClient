@@ -1,6 +1,6 @@
 package com.example.mamanguo.getAvailableMamaNguo;
 
-public class FetchMamaNguo {
+public class MamaNguo {
 
     private int mamanguoId;
     private String firstName;

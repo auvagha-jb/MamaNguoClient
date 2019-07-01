@@ -23,7 +23,11 @@ public class EnterMobileActivity extends AppCompatActivity {
     private Button btn_confirmPhone;
     private EditText input_phoneNumber;
     private Spinner countriesSpinner;
-    private TextView countryCode;
+    private EditText countryCode;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +37,8 @@ public class EnterMobileActivity extends AppCompatActivity {
         input_phoneNumber = findViewById(R.id.input_phone_number);
         countryCode = findViewById(R.id.country_code);
 
+        countryCode.setFocusable(false);
+
         //initialize spinner
         countriesSpinner = findViewById(R.id.spinnerCountries);
         countriesSpinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, CountryData.countryNames));
@@ -40,6 +46,8 @@ public class EnterMobileActivity extends AppCompatActivity {
         ArrayAdapter spinnerAdapter = (ArrayAdapter) countriesSpinner.getAdapter();
         int position = spinnerAdapter.getPosition(Constants.DEFAULT_COUNTRY);
         countriesSpinner.setSelection(position);
+
+        getMyExtras();
 
         btn_confirmPhone.setOnClickListener(v -> {
             String countryCode = CountryData.countryAreaCodes[countriesSpinner.getSelectedItemPosition()];
@@ -71,10 +79,22 @@ public class EnterMobileActivity extends AppCompatActivity {
         });
     }
 
+    private void getMyExtras() {
+        Bundle extras = getIntent().getExtras();
+        firstName = extras.getString("firstName");
+        lastName = extras.getString("lastName");
+        email = extras.getString("email");
+        password = extras.getString("password");
+    }
+
 
     private void createIntent(String phoneNumber) {
         Bundle extras = new Bundle();
-        extras.putString("PHONE_NUMBER", phoneNumber);
+        extras.putString("phoneNumber", phoneNumber);
+        extras.putString("firstName", firstName);
+        extras.putString("lastName", lastName);
+        extras.putString("email", email);
+        extras.putString("password", password);
         Intent intent = new Intent(this, PinVerifyActivity.class);
         intent.putExtras(extras);
         startActivity(intent);

@@ -13,7 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity
+            android:name=".ui.BottomNavActivity"
+            android:label="@string/title_activity_bottom_nav"></activity>
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -27,12 +29,10 @@
             android:label="@string/pick_laundry_lady" />
         <activity android:name=".chooseServices.ServicesActivity" />
         <activity android:name=".getAvailableMamaNguo.MainActivity" />
-
         <activity android:name=".Register.PinVerifyActivity" />
-        <activity android:name=".Register.EnterMobileActivity"></activity>
+        <activity android:name=".Register.EnterMobileActivity" />
         <activity android:name=".Register.SignUpActivity" />
-
-        <activity android:name=".RetroFit.MainActivity" />
+        <activity android:name=".RetroFitTest.MainActivity" />
         <activity
             android:name=".ui.CheckoutActivity"
             android:label="@string/checkoutActLabel" />
@@ -46,7 +46,6 @@
         <activity
             android:name=".ui.MapViewActivity"
             android:label="@string/mapViewActLabel" />
-
     </application>
 
 </manifest>

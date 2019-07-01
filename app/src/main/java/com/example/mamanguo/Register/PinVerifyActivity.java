@@ -12,6 +12,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.alimuzaffar.lib.pin.PinEntryEditText;
 import com.example.mamanguo.R;
+import com.example.mamanguo.Retrofit.MamaNguoApi;
+import com.example.mamanguo.Retrofit.RetrofitClient;
+import com.example.mamanguo.Retrofit.User;
+import com.example.mamanguo.chooseServices.ServicesActivity;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
@@ -21,16 +25,27 @@ import com.google.firebase.auth.PhoneAuthProvider;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class PinVerifyActivity extends AppCompatActivity {
 
     private static final String TAG = PinVerifyActivity.class.getSimpleName();
     private PinEntryEditText pinEntry;
     private TextView resendLink;
     private String codeSent;
-    private String phoneNumber;
     private FirebaseAuth mAuth;
     private ProgressBar progressBar;
     private PhoneAuthProvider.ForceResendingToken mResendToken;
+    MamaNguoApi retrofitInstance;
+
+    //User data
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String phoneNumber;
+    private String password;
 
 
     @Override
@@ -41,14 +56,27 @@ public class PinVerifyActivity extends AppCompatActivity {
         resendLink = findViewById(R.id.resend_link);
         mAuth = FirebaseAuth.getInstance();
         progressBar = findViewById(R.id.progressbar);
+        retrofitInstance = RetrofitClient.getRetrofitInstance().create(MamaNguoApi.class);
 
-        if (savedInstanceState == null) {
-            phoneNumber = Objects.requireNonNull(getIntent().getExtras()).getString("PHONE_NUMBER");
+        try {
+            Bundle extras = getIntent().getExtras();
+            firstName = extras.getString("firstName");
+            lastName = extras.getString("lastName");
+            phoneNumber = extras.getString("phoneNumber");
+            email = extras.getString("email");
+            password = extras.getString("password");
+
             sendVerificationCode(phoneNumber);
+            Toast.makeText(this, firstName
+                    , Toast.LENGTH_SHORT).show();
             Log.d(TAG, String.format("Phone number is %s", phoneNumber));
-        } else {
-            Log.e(TAG, "Phone number is null");
+            Toast.makeText(this, "Sending verification code. Please wait...", Toast.LENGTH_SHORT).show();
+        } catch(NullPointerException e) {
+            Log.e(TAG, e.getMessage());
         }
+
+
+
 
         if (pinEntry != null) {
             /*pinEntry.setTypeface(ResourcesCompat.getFont(this, R.font.charmonman_regular));*/
@@ -65,6 +93,39 @@ public class PinVerifyActivity extends AppCompatActivity {
         });
     }
 
+    private void addUser(String firstName, String lastName, String phoneNumber,
+                         String email, String password) {
+        User user = new User(firstName, lastName, phoneNumber, email, password);
+        Call<User> call = retrofitInstance.addUser(user);
+
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(PinVerifyActivity.this, "Something went wrong. Please try again later.", Toast.LENGTH_SHORT).show();
+                    Log.e(TAG, Objects.requireNonNull(response.body()).getMessage());
+
+                } else {
+                    onSignUpSuccess();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Log.e(TAG, t.getMessage());
+            }
+        });
+    }
+
+    private void onSignUpSuccess() {
+        setResult(RESULT_OK, null);
+        Intent intent = new Intent(this, ServicesActivity.class);
+        startActivity(intent);
+    }
+
+    private void onSignUpFailed() {
+        Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
+    }
 
     private void verifyPin(String pinEntered) {
         Log.d(TAG, String.format("verifyPin: %s", pinEntered));
@@ -85,19 +146,26 @@ public class PinVerifyActivity extends AppCompatActivity {
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(PinVerifyActivity.this, "SUCCESS", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(PinVerifyActivity.this, SignUpActivity.class);
-                        startActivity(intent);
 
-                    } else {
-                        if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+                    //If the pin is verified successfully
+                    progressBar.setVisibility(View.GONE);
+
+                    try {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(PinVerifyActivity.this, "SUCCESS", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(PinVerifyActivity.this, SignUpActivity.class);
+                            startActivity(intent);
+                            addUser(firstName, lastName, phoneNumber, email, password);
+                        } else if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                             Toast.makeText(PinVerifyActivity.this, "INCORRECT", Toast.LENGTH_SHORT).show();
                             pinEntry.setError(true);
                             pinEntry.postDelayed(() -> pinEntry.setText(null), 1000);
                         }
+
+                    } catch (Exception e) {
+                        Log.e(TAG, e.getMessage());
                     }
-                    progressBar.setVisibility(View.GONE);
+
                 });
 
     }
@@ -110,11 +178,14 @@ public class PinVerifyActivity extends AppCompatActivity {
 
         @Override
         public void onVerificationFailed(FirebaseException e) {
-
+            Log.e(TAG, e.getMessage());
+            Toast.makeText(PinVerifyActivity.this, "Verification error. Please try again.", Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+            Log.d(TAG, "onCodeSent: Sent verification code");
+            progressBar.setVisibility(View.GONE);
             super.onCodeSent(s, forceResendingToken);
             codeSent = s;
             mResendToken = forceResendingToken;
@@ -125,6 +196,7 @@ public class PinVerifyActivity extends AppCompatActivity {
      * Resend verification code
      */
     private void resendVerificationCode(String phoneNumber, PhoneAuthProvider.ForceResendingToken token) {
+        progressBar.setVisibility(View.VISIBLE);
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 phoneNumber,        // Phone number to verify
                 60,                 // Timeout duration

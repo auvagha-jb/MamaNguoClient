@@ -1,4 +1,4 @@
-package com.example.mamanguo.getAvailableMamaNguo;
+package com.example.mamanguo.RetroFitTest;
 
 import com.example.mamanguo.helpers.Constants;
 
@@ -17,7 +17,7 @@ public class RetrofitClient {
 
     public static Retrofit getRetrofitInstance() {
         if (retrofit == null) {
-            retrofit = new Retrofit.Builder()
+            retrofit = new retrofit2.Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     //Add the converter//
                     .addConverterFactory(GsonConverterFactory.create())

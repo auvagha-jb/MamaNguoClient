@@ -1,4 +1,4 @@
-package com.example.mamanguo.RetroFit;
+package com.example.mamanguo.RetroFitTest;
 
 import android.view.LayoutInflater;
 import android.view.View;

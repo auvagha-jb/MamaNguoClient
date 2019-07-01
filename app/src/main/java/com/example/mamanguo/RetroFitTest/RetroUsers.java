@@ -1,4 +1,4 @@
-package com.example.mamanguo.RetroFit;
+package com.example.mamanguo.RetroFitTest;
 
 import com.google.gson.annotations.SerializedName;
 

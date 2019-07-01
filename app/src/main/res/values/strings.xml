@@ -36,4 +36,14 @@
     <string name="first_name_label">First Name</string>
     <string name="last_name_label">Last name</string>
     <string name="email_address_label">Email Address</string>
+    <string name="password_label">Password</string>
+    <string name="re_enter_password">Re-enter Password</string>
+    <string name="create_account_btn">Create Account</string>
+    <string name="login_link_label">Already a member? Login</string>
+    <string name="logo_text">Logo</string>
+    <string name="title_activity_bottom_nav">BottomNavActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="no_account_label">No account yet? Create one</string>
 </resources>
