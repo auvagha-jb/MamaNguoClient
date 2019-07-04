@@ -20,6 +20,7 @@
         style="@style/btn_next"
         android:background="@color/colorPrimary"
         android:text="@string/find_mamanguo"
+        android:layout_margin="@dimen/standardMargin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

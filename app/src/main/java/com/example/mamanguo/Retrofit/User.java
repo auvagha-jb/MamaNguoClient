@@ -4,22 +4,25 @@ public class User {
 
     private Integer userId;
     private int roleId;
+
     private String firstName;
     private String lastName;
     private String phoneNumber;
     private String email;
     private String password;
 
+    //Validation attributes
     private boolean status;
     private String message;
+    private String target;
 
-    public boolean getStatus() {
-        return status;
-    }
+    public boolean getStatus() { return status; }
 
     public String getMessage() {
         return message;
     }
+
+    public String getTarget() { return target; }
 
     public String getPassword() {
         return password;

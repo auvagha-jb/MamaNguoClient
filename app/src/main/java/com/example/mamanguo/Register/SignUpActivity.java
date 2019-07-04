@@ -1,5 +1,6 @@
 package com.example.mamanguo.Register;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,10 +11,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mamanguo.R;
-import com.example.mamanguo.getAvailableMamaNguo.MainActivity;
-import com.example.mamanguo.ui.LoginActivity;
-
-import java.util.Objects;
+import com.example.mamanguo.ui.Activities.LoginActivity;
 
 import butterknife.ButterKnife;
 
@@ -27,6 +25,7 @@ public class SignUpActivity extends AppCompatActivity {
     EditText reEnterPasswordText;
     Button signUpButton;
     TextView _loginLink;
+    Context mContext;
 
     private void initComponents() {
         firstNameText = findViewById(R.id.input_firstName);
@@ -36,6 +35,7 @@ public class SignUpActivity extends AppCompatActivity {
         reEnterPasswordText = findViewById(R.id.input_reEnterPassword);
         signUpButton = findViewById(R.id.btn_signUp);
         _loginLink = findViewById(R.id.link_login);
+        mContext = SignUpActivity.this;
     }
 
     @Override
@@ -67,7 +67,7 @@ public class SignUpActivity extends AppCompatActivity {
         extras.putString("lastName", lastName);
         extras.putString("email", email);
         extras.putString("password", password);
-        Intent intent = new Intent(SignUpActivity.this, EnterMobileActivity.class);
+        Intent intent = new Intent(mContext, EnterMobileActivity.class);
         intent.putExtras(extras);
         startActivity(intent);
     }

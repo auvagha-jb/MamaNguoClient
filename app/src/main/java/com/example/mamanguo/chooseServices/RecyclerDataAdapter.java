@@ -23,16 +23,14 @@ import java.util.Map;
 import java.util.Set;
 
 
-class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapter.MyViewHolder> {
+public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapter.MyViewHolder> {
     //Custom interface to keep track of the changes
     private ServicesSelectedListener mServicesSelectedListener;
     private Context mContext;
     //Data structures to hold the activity data
     private ArrayList<DummyParentDataItem> dummyParentDataItems;
-    private Map<String, Integer> serviceCount = new HashMap<>();
-    private Map<String, Integer> serviceTotal = new HashMap<>();
 
-    RecyclerDataAdapter(ArrayList<DummyParentDataItem> dummyParentDataItems, ServicesSelectedListener servicesSelectedListener) {
+    public RecyclerDataAdapter(ArrayList<DummyParentDataItem> dummyParentDataItems, ServicesSelectedListener servicesSelectedListener) {
         this.dummyParentDataItems = dummyParentDataItems;
         this.mServicesSelectedListener = servicesSelectedListener;
     }
@@ -40,38 +38,38 @@ class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapter.MyVie
     //e.g. Shirts: 2
     private void setServiceCount(String item, int quantity) {
         //To eliminate possibility of having duplicate key entries
-        if (this.serviceCount.containsKey(item)) {
-            this.serviceCount.remove(item);
+        if (Bill.serviceCount.containsKey(item)) {
+            Bill.serviceCount.remove(item);
         }
-        this.serviceCount.put(item, quantity);
+        Bill.serviceCount.put(item, quantity);
     }
 
     private Map<String, Integer> getServiceCount() {
-        return this.serviceCount;
+        return Bill.serviceCount;
     }
 
     //Shirts: sh. 255
     private void setServiceTotal(String item, int subtotal) {
         //To eliminate possibility of having duplicate key entries
-        if (this.serviceTotal.containsKey(item)) {
-            this.serviceTotal.remove(item);
+        if (Bill.serviceTotal.containsKey(item)) {
+            Bill.serviceTotal.remove(item);
         }
-        this.serviceTotal.put(item, subtotal);
+        Bill.serviceTotal.put(item, subtotal);
     }
 
     private Map<String, Integer> getServiceTotal() {
-        return this.serviceTotal;
+        return Bill.serviceTotal;
     }
 
     private void removeItem(String item) {
-        if (this.serviceCount.containsKey(item)) this.serviceCount.remove(item);
-        if (this.serviceTotal.containsKey(item)) this.serviceTotal.remove(item);
+        if (Bill.serviceCount.containsKey(item)) Bill.serviceCount.remove(item);
+        if (Bill.serviceTotal.containsKey(item)) Bill.serviceTotal.remove(item);
     }
 
     private int getBillTotal() {
         int bill_total = 0;
         //Returns set view
-        Set<Map.Entry<String, Integer>> set = this.serviceTotal.entrySet();
+        Set<Map.Entry<String, Integer>> set = Bill.serviceTotal.entrySet();
         for (Map.Entry<String, Integer> me : set) {
             bill_total += me.getValue();
         }

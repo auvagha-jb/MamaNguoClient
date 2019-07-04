@@ -1,4 +1,4 @@
-package com.example.mamanguo.ui;
+package com.example.mamanguo.ui.Activities;
 
 import android.os.Bundle;
 import androidx.annotation.Nullable;

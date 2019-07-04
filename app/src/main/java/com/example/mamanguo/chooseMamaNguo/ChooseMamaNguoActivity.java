@@ -3,13 +3,13 @@ package com.example.mamanguo.chooseMamaNguo;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Button;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
 
 import com.example.mamanguo.R;
 import com.example.mamanguo.RetroFitTest.MainActivity;
@@ -44,12 +44,9 @@ public class ChooseMamaNguoActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: " + Arrays.toString(items));
 
         /* On click listeners: */
-        btn_history.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            Intent intent = new Intent(v.getContext(), MainActivity.class);
-            startActivity(intent);
-            }
+        btn_history.setOnClickListener(v -> {
+            Intent intent1 = new Intent(v.getContext(), MainActivity.class);
+            startActivity(intent1);
         });
 
         recyclerDataAdapter.setOnItemClickListener(new RecyclerDataAdapter.OnItemClickListener() {

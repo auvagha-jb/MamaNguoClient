@@ -1,5 +1,6 @@
 package com.example.mamanguo.Register;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,7 +16,8 @@ import com.example.mamanguo.R;
 import com.example.mamanguo.Retrofit.MamaNguoApi;
 import com.example.mamanguo.Retrofit.RetrofitClient;
 import com.example.mamanguo.Retrofit.User;
-import com.example.mamanguo.chooseServices.ServicesActivity;
+import com.example.mamanguo.helpers.UIFeatures;
+import com.example.mamanguo.ui.Activities.BottomNavActivity;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
@@ -38,7 +40,7 @@ public class PinVerifyActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private ProgressBar progressBar;
     private PhoneAuthProvider.ForceResendingToken mResendToken;
-    MamaNguoApi retrofitInstance;
+    private MamaNguoApi retrofitInstance;
 
     //User data
     private String firstName;
@@ -70,12 +72,13 @@ public class PinVerifyActivity extends AppCompatActivity {
             Toast.makeText(this, firstName
                     , Toast.LENGTH_SHORT).show();
             Log.d(TAG, String.format("Phone number is %s", phoneNumber));
-            Toast.makeText(this, "Sending verification code. Please wait...", Toast.LENGTH_SHORT).show();
-        } catch(NullPointerException e) {
+            /*Toast.makeText(this, "Sending verification code. Please wait...", Toast.LENGTH_SHORT).show();*/
+            ProgressDialog progressDialog = UIFeatures.showProgressDialog(this, "Sending verification code...");
+            UIFeatures.dismissProgressDialog(progressDialog);
+
+        } catch (NullPointerException e) {
             Log.e(TAG, e.getMessage());
         }
-
-
 
 
         if (pinEntry != null) {
@@ -119,17 +122,15 @@ public class PinVerifyActivity extends AppCompatActivity {
 
     private void onSignUpSuccess() {
         setResult(RESULT_OK, null);
-        Intent intent = new Intent(this, ServicesActivity.class);
+        Intent intent = new Intent(this, BottomNavActivity.class);
         startActivity(intent);
     }
 
-    private void onSignUpFailed() {
-        Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
-    }
 
     private void verifyPin(String pinEntered) {
         Log.d(TAG, String.format("verifyPin: %s", pinEntered));
         progressBar.setVisibility(View.VISIBLE);
+
         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(codeSent, pinEntered);
         signInWithPhoneAuthCredential(credential);
     }
@@ -192,9 +193,7 @@ public class PinVerifyActivity extends AppCompatActivity {
         }
     };
 
-    /**
-     * Resend verification code
-     */
+    //Resends verification code
     private void resendVerificationCode(String phoneNumber, PhoneAuthProvider.ForceResendingToken token) {
         progressBar.setVisibility(View.VISIBLE);
         PhoneAuthProvider.getInstance().verifyPhoneNumber(

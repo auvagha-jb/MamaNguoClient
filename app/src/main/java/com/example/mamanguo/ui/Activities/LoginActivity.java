@@ -1,6 +1,7 @@
-package com.example.mamanguo.ui;
+package com.example.mamanguo.ui.Activities;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,15 +13,12 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mamanguo.R;
-import com.example.mamanguo.Register.EnterMobileActivity;
 import com.example.mamanguo.Register.SignUpActivity;
 import com.example.mamanguo.Retrofit.MamaNguoApi;
 import com.example.mamanguo.Retrofit.RetrofitClient;
 import com.example.mamanguo.Retrofit.User;
-import com.example.mamanguo.chooseServices.ServicesActivity;
+import com.example.mamanguo.helpers.UIFeatures;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -29,49 +27,59 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
 
-    @BindView(R.id.input_email)
+
     EditText emailText;
-    @BindView(R.id.input_password)
     EditText passwordText;
-    @BindView(R.id.btn_login)
     Button loginButton;
-    @BindView(R.id.link_signup)
     TextView signUpLink;
+    Context mContext;
     MamaNguoApi retrofitInstance;
+    ProgressDialog progressDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        ButterKnife.bind(this);
         retrofitInstance = RetrofitClient.getRetrofitInstance().create(MamaNguoApi.class);
+        mContext = LoginActivity.this;
+        initComponents();
         attachListeners();
+    }
+
+
+    private void initComponents() {
+        emailText = findViewById(R.id.input_email);
+        passwordText = findViewById(R.id.input_password);
+        loginButton = findViewById(R.id.btn_login);
+        signUpLink = findViewById(R.id.link_signup);
     }
 
     public void login() {
         Log.d(TAG, "Login");
 
+        progressDialog = UIFeatures.showProgressDialog(mContext, "Authenticating...");
         if (validate()) {
             loginButton.setEnabled(false);
             String email = emailText.getText().toString();
             String password = passwordText.getText().toString();
             userLogin(email, password);
         }
+        UIFeatures.dismissProgressDialog(progressDialog);
     }
 
 
     private void userLogin(String email, String password) {
         User user = new User(email, password);
-        Call <User> call = retrofitInstance.userLogin(user);
+        Call<User> call = retrofitInstance.userLogin(user);
 
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 User userResponse = response.body();
-                if(userResponse.getStatus()){
+                if (userResponse.getStatus()) {
                     onLoginSuccess(userResponse);
                 } else {
-                    onLoginFailed(userResponse.getMessage());
+                    onLoginFailed(userResponse.getMessage(), userResponse.getTarget());
                 }
 
             }
@@ -79,8 +87,11 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 Log.e(TAG, t.getMessage());
+                loginButton.setEnabled(true);
+                Toast.makeText(LoginActivity.this, "Check your internet connection and try again", Toast.LENGTH_SHORT).show();
             }
         });
+        UIFeatures.dismissProgressDialog(progressDialog);
     }
 
     private void onLoginSuccess(User user) {
@@ -90,14 +101,26 @@ public class LoginActivity extends AppCompatActivity {
         extras.putString("lastName", user.getLastName());
         extras.putString("email", user.getEmail());
         extras.putString("phoneNumber", user.getPhoneNumber());
-        Intent intent = new Intent(LoginActivity.this, ServicesActivity.class);
+        Intent intent = new Intent(mContext, BottomNavActivity.class);
         intent.putExtras(extras);
         startActivity(intent);
     }
 
-    private void onLoginFailed(String message) {
-        Toast.makeText(getBaseContext(), message, Toast.LENGTH_LONG).show();
+    private void onLoginFailed(String message, String target) {
+        Toast.makeText(mContext, target, Toast.LENGTH_LONG).show();
         loginButton.setEnabled(true);
+
+        //Set the error message
+        switch (target) {
+            case "username":
+                emailText.setError(message);
+                break;
+            case "password":
+                passwordText.setError(message);
+                break;
+            default:
+                break;
+        }
     }
 
     private boolean validate() {

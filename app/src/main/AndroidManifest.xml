@@ -8,14 +8,16 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/app_logo"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.BottomNavActivity"
-            android:label="@string/title_activity_bottom_nav"></activity>
+            android:name=".chooseServices.ServicesActivity"
+            android:label="@string/title_activity_services"
+            android:theme="@style/AppTheme"></activity>
+        <activity android:name=".ui.Activities.BottomNavActivity" />
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -27,24 +29,19 @@
         <activity
             android:name=".chooseMamaNguo.ChooseMamaNguoActivity"
             android:label="@string/pick_laundry_lady" />
-        <activity android:name=".chooseServices.ServicesActivity" />
         <activity android:name=".getAvailableMamaNguo.MainActivity" />
         <activity android:name=".Register.PinVerifyActivity" />
         <activity android:name=".Register.EnterMobileActivity" />
         <activity android:name=".Register.SignUpActivity" />
         <activity android:name=".RetroFitTest.MainActivity" />
-        <activity
-            android:name=".ui.CheckoutActivity"
-            android:label="@string/checkoutActLabel" />
-        <activity android:name=".ui.LoginActivity">
+        <activity android:name=".ui.Activities.CheckoutActivity" android:label="@string/checkoutActLabel" />
+        <activity android:name=".ui.Activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.MapViewActivity"
+        <activity android:name=".ui.Activities.MapViewActivity"
             android:label="@string/mapViewActLabel" />
     </application>
 

@@ -12,7 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.example.mamanguo.ui.MapViewActivity;
+import com.example.mamanguo.ui.Activities.MapViewActivity;
 import com.example.mamanguo.R;
 
 import java.util.ArrayList;
