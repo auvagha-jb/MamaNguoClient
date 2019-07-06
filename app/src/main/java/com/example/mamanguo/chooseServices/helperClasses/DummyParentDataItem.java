@@ -1,4 +1,4 @@
-package com.example.mamanguo.chooseServices;
+package com.example.mamanguo.chooseServices.helperClasses;
 
 import java.io.Serializable;
 import java.util.ArrayList;

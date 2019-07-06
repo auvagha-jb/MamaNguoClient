@@ -3,11 +3,6 @@ package com.example.mamanguo.chooseMamaNguo;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-/**
- * <b></b>
- * <p>This class is used to </p>
- * Created by Rohit.
- */
 class DummyParentDataItem implements Serializable {
     private String parentName;
     private float rating;

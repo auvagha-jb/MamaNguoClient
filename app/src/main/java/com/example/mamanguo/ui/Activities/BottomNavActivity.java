@@ -5,7 +5,7 @@ import android.os.Bundle;
 import com.example.mamanguo.R;
 import com.example.mamanguo.ui.Fragments.HomeFragment;
 import com.example.mamanguo.ui.Fragments.OrdersFragment;
-import com.example.mamanguo.ui.Fragments.ProfileFragment;
+import com.example.mamanguo.ui.Fragments.ProfileEditFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
@@ -23,7 +23,8 @@ public class BottomNavActivity extends AppCompatActivity implements BottomNaviga
         BottomNavigationView navView = findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(this);
 
-        //Default fragment
+        //Set the default fragment
+        navView.setSelectedItemId(R.id.navigation_home);
         loadFragment(new HomeFragment());
     }
 
@@ -39,7 +40,7 @@ public class BottomNavActivity extends AppCompatActivity implements BottomNaviga
                 fragment = new OrdersFragment();
                 break;
             case R.id.navigation_profile:
-                fragment = new ProfileFragment();
+                fragment = new ProfileEditFragment();
                 break;
         }
         return loadFragment(fragment);

@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/navigation_orders"
-        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:icon="@drawable/laundry_service_black"
         android:title="@string/title_orders" />
 
     <item
@@ -14,7 +14,7 @@
 
     <item
         android:id="@+id/navigation_profile"
-        android:icon="@drawable/profile_ic_foreground"
+        android:icon="@drawable/profile_black"
         android:title="@string/title_profile" />
 
 </menu>

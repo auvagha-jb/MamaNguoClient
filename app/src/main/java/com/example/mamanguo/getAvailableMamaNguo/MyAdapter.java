@@ -15,6 +15,7 @@ import java.util.List;
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.CustomViewHolder> {
 
     private List<MamaNguo> dataList;
+    private OnItemClickListener mListener;
 
     public MyAdapter(List<MamaNguo> dataList){
         this.dataList = dataList;
@@ -49,7 +50,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.CustomViewHolder> 
 
     public void onBindViewHolder(CustomViewHolder holder, int position) {
         holder.textUser.setText(dataList.get(position).getFullName());
-
     }
 
 //Calculate the item count for the RecylerView//
@@ -58,4 +58,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.CustomViewHolder> 
     public int getItemCount() {
         return dataList.size();
     }
+
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mListener = listener;
+    }
+
+    public interface OnItemClickListener{
+        void onCardClick(int position);
+    }
+
 }

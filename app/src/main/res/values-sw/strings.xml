@@ -49,4 +49,16 @@
     <string name="login_btn">Ingia</string>
     <string name="select_country_hint">Chaguo nchi lako</string>
     <string name="country_code_hint">Country code</string>
+    <string name="sweater">sweater</string>
+    <string name="blouse">Blouse</string>
+    <string name="scarves" />
+    <string name="socks">Socks</string>
+    <string name="ties">Ties</string>
+    <string name="jumpsuit">Jumpsuit</string>
+    <string name="item_header">Item</string>
+    <string name="unit_price_header">Unit Price</string>
+    <string name="subtotal_header">Subtotal</string>
+    <string name="quantity_header">Quantity</string>
+    <string name="summary_title">Order Summary</string>
+    <string name="grand_total_text">GRAND TOTAL</string>
 </resources>

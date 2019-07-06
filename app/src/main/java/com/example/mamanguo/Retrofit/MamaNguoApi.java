@@ -15,6 +15,10 @@ public interface MamaNguoApi {
     @GET("getAvailableMamaNguo")
     Call<List<MamaNguo>> getMamaNguo();
 
+    //Display user's history of Mamanguo
+    @GET("getHistory")
+    Call<List<MamaNguo>> getHistory();
+
     //Registration validation
     @POST("emailExists")
     Call <User> emailExists(String email);

@@ -3,6 +3,7 @@ package com.example.mamanguo.ui.Activities;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -18,15 +19,18 @@ import com.example.mamanguo.Retrofit.MamaNguoApi;
 import com.example.mamanguo.Retrofit.RetrofitClient;
 import com.example.mamanguo.Retrofit.User;
 import com.example.mamanguo.helpers.UIFeatures;
+import com.example.mamanguo.sharedPreferences.UserData;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.mamanguo.helpers.Constants.USER_DATA;
+import static com.example.mamanguo.helpers.Constants.USER_ID;
+
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
-
 
     EditText emailText;
     EditText passwordText;
@@ -40,10 +44,22 @@ public class LoginActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        if(isLoggedIn()) {
+            Intent intent = new Intent(this, BottomNavActivity.class);
+            startActivity(intent);
+        }
+
         retrofitInstance = RetrofitClient.getRetrofitInstance().create(MamaNguoApi.class);
         mContext = LoginActivity.this;
         initComponents();
         attachListeners();
+
+    }
+
+    private boolean isLoggedIn() {
+        SharedPreferences sharedPreferences = getSharedPreferences(USER_DATA, MODE_PRIVATE);
+        return sharedPreferences.contains(USER_ID);
     }
 
 
@@ -95,6 +111,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void onLoginSuccess(User user) {
+        SharedPreferences sharedPreferences = getSharedPreferences(USER_DATA, MODE_PRIVATE);
+        UserData userData = new UserData(user.getUserId(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getPhoneNumber());
+        userData.saveUserData(sharedPreferences);
+
         loginButton.setEnabled(true);
         Bundle extras = new Bundle();
         extras.putString("firstName", user.getFirstName());
@@ -107,7 +127,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void onLoginFailed(String message, String target) {
-        Toast.makeText(mContext, target, Toast.LENGTH_LONG).show();
+        Log.d(TAG, String.format("onLoginFailed: %s", target));
         loginButton.setEnabled(true);
 
         //Set the error message

@@ -13,10 +13,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".getAvailableMamaNguo.HistoryActivity"/>
         <activity
             android:name=".chooseServices.ServicesActivity"
             android:label="@string/title_activity_services"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
         <activity android:name=".ui.Activities.BottomNavActivity" />
 
         <meta-data
@@ -26,22 +27,21 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_api_key" />
 
-        <activity
-            android:name=".chooseMamaNguo.ChooseMamaNguoActivity"
-            android:label="@string/pick_laundry_lady" />
+        <activity android:name=".chooseMamaNguo.ChooseMamaNguoActivity" />
         <activity android:name=".getAvailableMamaNguo.MainActivity" />
         <activity android:name=".Register.PinVerifyActivity" />
         <activity android:name=".Register.EnterMobileActivity" />
         <activity android:name=".Register.SignUpActivity" />
         <activity android:name=".RetroFitTest.MainActivity" />
-        <activity android:name=".ui.Activities.CheckoutActivity" android:label="@string/checkoutActLabel" />
+        <activity android:name=".ui.Activities.CheckoutActivity" />
         <activity android:name=".ui.Activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.Activities.MapViewActivity"
+        <activity
+            android:name=".ui.Activities.MapViewActivity"
             android:label="@string/mapViewActLabel" />
     </application>
 

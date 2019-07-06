@@ -1,15 +1,18 @@
 package com.example.mamanguo.getAvailableMamaNguo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.mamanguo.R;
 import com.example.mamanguo.Retrofit.MamaNguoApi;
 import com.example.mamanguo.Retrofit.RetrofitClient;
+import com.example.mamanguo.ui.Activities.MapViewActivity;
 
 import java.util.List;
 
@@ -17,21 +20,23 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MyAdapter.OnItemClickListener {
 
     private MyAdapter myAdapter;
     private RecyclerView myRecyclerView;
     private static String TAG = MainActivity.class.getSimpleName();
+    private Button btn_history;
+    private List<MamaNguo>listData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_retrofit_recycler);
+        setContentView(R.layout.activity_choose_mamanguo);
+        btn_history = findViewById(R.id.button_viewHistory);
 
         //Create a handler for the RetrofitInstance interface//
-        MamaNguoApi service = RetrofitClient.getRetrofitInstance().create(MamaNguoApi.class);
-
-        Call<List<MamaNguo>> call = service.getMamaNguo();
+        MamaNguoApi retrofitInstance = RetrofitClient.getRetrofitInstance().create(MamaNguoApi.class);
+        Call<List<MamaNguo>> call = retrofitInstance.getMamaNguo();
 
         //Execute the request asynchronously//
         call.enqueue(new Callback<List<MamaNguo>>() {
@@ -39,7 +44,8 @@ public class MainActivity extends AppCompatActivity {
             //Handle a successful response//
             public void onResponse(Call<List<MamaNguo>> call, Response<List<MamaNguo>> response) {
                 Log.d(TAG, "onResponse: Response Received");
-                loadDataList(response.body());
+                listData = response.body();
+                loadDataList(listData);
             }
 
             @Override
@@ -50,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Unable to load users", Toast.LENGTH_SHORT).show();
             }
         });
+        attachListener();
     }
 
     //Display the retrieved data as a list//
@@ -66,4 +73,22 @@ public class MainActivity extends AppCompatActivity {
         myRecyclerView.setAdapter(myAdapter);
     }
 
+    private void attachListener() {
+        /* On click listeners: */
+        btn_history.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), HistoryActivity.class);
+            startActivity(intent);
+        });
+
+        myAdapter.setOnItemClickListener(position -> {
+            String itemSelected = listData.get(position).getFullName();
+            Toast.makeText(this, itemSelected, Toast.LENGTH_SHORT).show();
+        });
+    }
+
+    @Override
+    public void onCardClick(int position) {
+        Intent intent = new Intent(this, MapViewActivity.class);
+        startActivity(intent);
+    }
 }

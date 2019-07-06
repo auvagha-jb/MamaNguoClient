@@ -1,4 +1,4 @@
-package com.example.mamanguo.chooseServices;
+package com.example.mamanguo.chooseServices.helperClasses;
 
 import android.widget.TextView;
 

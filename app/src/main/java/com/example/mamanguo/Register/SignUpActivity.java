@@ -90,7 +90,7 @@ public class SignUpActivity extends AppCompatActivity {
         }
 
         if (lastName.isEmpty()) {
-            lastNameText.setError("First name is required");
+            lastNameText.setError("Last name is required");
             valid = false;
         } else {
             lastNameText.setError(null);
@@ -105,7 +105,7 @@ public class SignUpActivity extends AppCompatActivity {
 
 
         if (password.isEmpty() || password.length() < 6 || password.length() > 10) {
-            passwordText.setError("between 4 and 10 alphanumeric characters");
+            passwordText.setError("Password should be at least 6 characters");
             valid = false;
         } else {
             passwordText.setError(null);

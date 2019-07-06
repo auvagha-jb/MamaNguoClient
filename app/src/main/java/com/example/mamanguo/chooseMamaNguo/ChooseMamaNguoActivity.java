@@ -49,12 +49,9 @@ public class ChooseMamaNguoActivity extends AppCompatActivity {
             startActivity(intent1);
         });
 
-        recyclerDataAdapter.setOnItemClickListener(new RecyclerDataAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                String itemSelected = listData.get(position).getParentName();
-                Toast.makeText(mContext, itemSelected, Toast.LENGTH_SHORT).show();
-            }
+        recyclerDataAdapter.setOnItemClickListener(position -> {
+            String itemSelected = listData.get(position).getParentName();
+            Toast.makeText(mContext, itemSelected, Toast.LENGTH_SHORT).show();
         });
     }
 

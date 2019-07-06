@@ -38,7 +38,7 @@ class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapter.MyVie
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_parent_child_listing_find, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_choose_mamanguo_items, parent, false);
         final Context context = itemView.getContext();
 
         return new MyViewHolder(itemView, mListener);

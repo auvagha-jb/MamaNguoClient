@@ -2,6 +2,7 @@ package com.example.mamanguo.Register;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +18,7 @@ import com.example.mamanguo.Retrofit.MamaNguoApi;
 import com.example.mamanguo.Retrofit.RetrofitClient;
 import com.example.mamanguo.Retrofit.User;
 import com.example.mamanguo.helpers.UIFeatures;
+import com.example.mamanguo.sharedPreferences.UserData;
 import com.example.mamanguo.ui.Activities.BottomNavActivity;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,6 +33,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.mamanguo.helpers.Constants.USER_DATA;
+
 public class PinVerifyActivity extends AppCompatActivity {
 
     private static final String TAG = PinVerifyActivity.class.getSimpleName();
@@ -43,6 +47,7 @@ public class PinVerifyActivity extends AppCompatActivity {
     private MamaNguoApi retrofitInstance;
 
     //User data
+    private int userId;
     private String firstName;
     private String lastName;
     private String email;
@@ -78,6 +83,7 @@ public class PinVerifyActivity extends AppCompatActivity {
 
         } catch (NullPointerException e) {
             Log.e(TAG, e.getMessage());
+
         }
 
 
@@ -96,8 +102,7 @@ public class PinVerifyActivity extends AppCompatActivity {
         });
     }
 
-    private void addUser(String firstName, String lastName, String phoneNumber,
-                         String email, String password) {
+    private void addUser() {
         User user = new User(firstName, lastName, phoneNumber, email, password);
         Call<User> call = retrofitInstance.addUser(user);
 
@@ -109,6 +114,8 @@ public class PinVerifyActivity extends AppCompatActivity {
                     Log.e(TAG, Objects.requireNonNull(response.body()).getMessage());
 
                 } else {
+                    //Store user data in shared preferences
+                    userId = Objects.requireNonNull(response.body()).getUserId();
                     onSignUpSuccess();
                 }
             }
@@ -120,7 +127,15 @@ public class PinVerifyActivity extends AppCompatActivity {
         });
     }
 
+
+    private void saveUserData() {
+        SharedPreferences sharedPreferences = getSharedPreferences(USER_DATA, MODE_PRIVATE);
+        UserData userData = new UserData(userId, firstName, lastName, email, phoneNumber);
+        userData.saveUserData(sharedPreferences);
+    }
+
     private void onSignUpSuccess() {
+        saveUserData();
         setResult(RESULT_OK, null);
         Intent intent = new Intent(this, BottomNavActivity.class);
         startActivity(intent);
@@ -131,8 +146,12 @@ public class PinVerifyActivity extends AppCompatActivity {
         Log.d(TAG, String.format("verifyPin: %s", pinEntered));
         progressBar.setVisibility(View.VISIBLE);
 
-        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(codeSent, pinEntered);
-        signInWithPhoneAuthCredential(credential);
+        try {
+            PhoneAuthCredential credential = PhoneAuthProvider.getCredential(codeSent, pinEntered);
+            signInWithPhoneAuthCredential(credential);
+        } catch (IllegalArgumentException e) {
+            Log.e(TAG, e.getMessage());
+        }
     }
 
     private void sendVerificationCode(String phoneNumber) {
@@ -154,9 +173,8 @@ public class PinVerifyActivity extends AppCompatActivity {
                     try {
                         if (task.isSuccessful()) {
                             Toast.makeText(PinVerifyActivity.this, "SUCCESS", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(PinVerifyActivity.this, SignUpActivity.class);
-                            startActivity(intent);
-                            addUser(firstName, lastName, phoneNumber, email, password);
+                            //Register the user
+                            addUser();
                         } else if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                             Toast.makeText(PinVerifyActivity.this, "INCORRECT", Toast.LENGTH_SHORT).show();
                             pinEntry.setError(true);

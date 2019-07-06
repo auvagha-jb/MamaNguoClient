@@ -1,9 +1,6 @@
-package com.example.mamanguo.chooseServices;
+package com.example.mamanguo.chooseServices.helperClasses;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
@@ -15,10 +12,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.mamanguo.R;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -36,11 +36,9 @@ public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapte
     }
 
     //e.g. Shirts: 2
-    private void setServiceCount(String item, int quantity) {
+    private void setServiceQuantity(String item, int quantity) {
         //To eliminate possibility of having duplicate key entries
-        if (Bill.serviceCount.containsKey(item)) {
-            Bill.serviceCount.remove(item);
-        }
+        if (Bill.serviceCount.containsKey(item)) Bill.serviceCount.remove(item);
         Bill.serviceCount.put(item, quantity);
     }
 
@@ -49,12 +47,16 @@ public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapte
     }
 
     //Shirts: sh. 255
-    private void setServiceTotal(String item, int subtotal) {
+    private void setServiceSubtotal(String item, int subtotal) {
         //To eliminate possibility of having duplicate key entries
-        if (Bill.serviceTotal.containsKey(item)) {
-            Bill.serviceTotal.remove(item);
-        }
+        if (Bill.serviceTotal.containsKey(item)) Bill.serviceTotal.remove(item);
         Bill.serviceTotal.put(item, subtotal);
+    }
+
+    private void setUnitPrice(String item, int unitPrice) {
+        //To eliminate possibility of having duplicate key entries
+        if (Bill.serviceUnitPrice.containsKey(item)) Bill.serviceUnitPrice.remove(item);
+        Bill.serviceUnitPrice.put(item, unitPrice);
     }
 
     private Map<String, Integer> getServiceTotal() {
@@ -64,16 +66,21 @@ public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapte
     private void removeItem(String item) {
         if (Bill.serviceCount.containsKey(item)) Bill.serviceCount.remove(item);
         if (Bill.serviceTotal.containsKey(item)) Bill.serviceTotal.remove(item);
+        if (Bill.serviceUnitPrice.containsKey(item)) Bill.unitPrice.remove(item);
     }
 
-    private int getBillTotal() {
+    private Map<String, Integer> getUnitPrice() {
+        return Bill.serviceUnitPrice;
+    }
+
+    private void updateBillTotal() {
         int bill_total = 0;
         //Returns set view
         Set<Map.Entry<String, Integer>> set = Bill.serviceTotal.entrySet();
         for (Map.Entry<String, Integer> me : set) {
             bill_total += me.getValue();
         }
-        return bill_total;
+        Bill.setBillTotal(bill_total);
     }
 
 
@@ -119,7 +126,9 @@ public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapte
     }
 
     public interface ServicesSelectedListener {
-        void onServicesUpdated(Map<String, Integer> serviceCount, Map<String, Integer> serviceTotal, int billTotal);
+        void onServicesUpdated(Map<String, Integer> serviceUnitPrice,
+                               Map<String, Integer> serviceCount,
+                               Map<String, Integer> serviceTotal);
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -180,14 +189,16 @@ public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapte
 
                     String item = textView_parentName.getText().toString();
                     subtotal_value.setText(String.format(context.getString(R.string.new_subtotal), subtotal));
-                    setServiceCount(item, noItems);
-                    setServiceTotal(item, subtotal);
-                    int currentTotal = getBillTotal();
+                    //Add the order items
+                    setUnitPrice(item, unitPrice);
+                    setServiceQuantity(item, noItems);
+                    setServiceSubtotal(item, subtotal);
+                    updateBillTotal();
 
-                    //Remove item from order if
+                    //Remove item from order if field is empty
                     if (noItems == 0) removeItem(item);
                     //Update the info
-                    servicesSelectedListener.onServicesUpdated(getServiceCount(), getServiceTotal(), currentTotal);
+                    servicesSelectedListener.onServicesUpdated(getUnitPrice(), getServiceCount(), getServiceTotal());
                 }
 
                 @Override

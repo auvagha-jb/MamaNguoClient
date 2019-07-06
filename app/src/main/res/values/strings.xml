@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MamaNguo</string>
+    <string name="app_name">Mamanguo</string>
     <string name="btn_SetLocation">Enter Location</string>
 
     <string name="mapViewActLabel">Enter your location</string>
@@ -54,10 +54,23 @@
     <string name="login_btn">Login</string>
     <string name="select_country_hint">Select your country</string>
     <string name="country_code_hint">Country code</string>
-    <string name="title_activity_services">Choose a service</string>
+    <string name="title_activity_services">My order</string>
     <string name="tab_text_1">Tops</string>
     <string name="tab_text_2">Bottoms</string>
     <string name="tab_text_3">Full Body</string>
     <string name="tab_text_4">Shoes</string>
     <string name="tab_text_5">Accessories</string>
+    <string name="sweater">Sweater</string>
+    <string name="blouse">Blouse</string>
+    <string name="scarves">Scarves</string>
+    <string name="socks">Socks</string>
+    <string name="ties">Ties</string>
+    <string name="jumpsuit">Jumpsuit</string>
+    <string name="title_activity_history">HistoryActivity</string>
+    <string name="item_header">Item</string>
+    <string name="unit_price_header">Unit Price</string>
+    <string name="subtotal_header">Subtotal</string>
+    <string name="quantity_header">Quantity</string>
+    <string name="summary_title">Order Summary</string>
+    <string name="grand_total_text">GRAND TOTAL</string>
 </resources>
