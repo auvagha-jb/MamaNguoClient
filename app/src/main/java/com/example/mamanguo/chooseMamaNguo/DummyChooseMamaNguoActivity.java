@@ -17,19 +17,19 @@ import com.example.mamanguo.RetroFitTest.MainActivity;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class ChooseMamaNguoActivity extends AppCompatActivity {
+public class DummyChooseMamaNguoActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private Button btn_history;
     private Context mContext;
     private RecyclerDataAdapter recyclerDataAdapter;
     ArrayList<DummyParentDataItem> listData;
-    private static final String TAG = ChooseMamaNguoActivity.class.getSimpleName();
+    private static final String TAG = DummyChooseMamaNguoActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_mamanguo);
-        mContext = ChooseMamaNguoActivity.this;
+        mContext = DummyChooseMamaNguoActivity.this;
         mRecyclerView = findViewById(R.id.recyclerView);
         btn_history = findViewById(R.id.button_viewHistory);
         listData = getDummyDataToPass();

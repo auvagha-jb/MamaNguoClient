@@ -1,3 +1,4 @@
+/*
 package com.example.mamanguo.getAvailableMamaNguo;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,7 +27,7 @@ public class HistoryActivity extends AppCompatActivity implements MyAdapter.OnIt
 
     private MyAdapter myAdapter;
     private RecyclerView myRecyclerView;
-    private static String TAG = MainActivity.class.getSimpleName();
+    private static String TAG = ChooseMamaNguoActivity.class.getSimpleName();
     private Button btn_history;
     private List<MamaNguo> listData;
     private Context mContext;
@@ -39,8 +40,8 @@ public class HistoryActivity extends AppCompatActivity implements MyAdapter.OnIt
         mContext = HistoryActivity.this;
 
         //Create a handler for the RetrofitInstance interface//
-        MamaNguoApi retrofitInstance = RetrofitClient.getRetrofitInstance().create(MamaNguoApi.class);
-        Call<List<MamaNguo>> call = retrofitInstance.getHistory();
+        MamaNguoApi retrofitInstance = RetrofitClient.createRetrofitInstance().create(MamaNguoApi.class);
+        Call<List<MamaNguo>> call = retrofitInstance.getHistory(1);
 
         //Execute the request asynchronously//
         call.enqueue(new Callback<List<MamaNguo>>() {
@@ -72,7 +73,7 @@ public class HistoryActivity extends AppCompatActivity implements MyAdapter.OnIt
     private void loadDataList(List<MamaNguo> usersList) {
         //Get a reference to the RecyclerView//
         myRecyclerView = findViewById(R.id.myRecyclerView);
-        myAdapter = new MyAdapter(usersList);
+        myAdapter = new MyAdapter(usersList,this);
 
         //Use a LinearLayoutManager with default vertical orientation//
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mContext);
@@ -83,7 +84,9 @@ public class HistoryActivity extends AppCompatActivity implements MyAdapter.OnIt
     }
 
     private void attachListener() {
-        /* On click listeners: */
+        */
+/* On click listeners: *//*
+
         btn_history.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), HistoryActivity.class);
             startActivity(intent);
@@ -101,3 +104,4 @@ public class HistoryActivity extends AppCompatActivity implements MyAdapter.OnIt
         startActivity(intent);
     }
 }
+*/

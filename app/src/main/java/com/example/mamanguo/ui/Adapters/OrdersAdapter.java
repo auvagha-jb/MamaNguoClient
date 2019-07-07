@@ -1,6 +1,6 @@
-package com.example.mamanguo.getAvailableMamaNguo;
+package com.example.mamanguo.ui.Adapters;
 
-import androidx.recyclerview.widget.RecyclerView;
+//Extend the RecyclerView.Adapter class//
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,20 +8,22 @@ import android.view.ViewGroup;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.mamanguo.R;
 import com.example.mamanguo.Retrofit.Models.MamaNguo;
+
 
 import java.util.List;
 import java.util.Locale;
 
-//Extend the RecyclerView.Adapter class//
-
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.CustomViewHolder> implements View.OnClickListener{
+public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.CustomViewHolder> implements View.OnClickListener{
 
     private List<MamaNguo> dataList;
     private OnItemClickListener mOnItemClickListener;
 
-    public MyAdapter(List<MamaNguo> dataList, OnItemClickListener onItemClickListener){
+    public OrdersAdapter(List<MamaNguo> dataList, OnItemClickListener onItemClickListener){
         this.dataList = dataList;
         this.mOnItemClickListener = onItemClickListener;
     }
@@ -66,17 +68,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.CustomViewHolder> 
         return new CustomViewHolder(view, mOnItemClickListener);
     }
 
+    //Set the data
     @Override
-
-//Set the data//
-
-    public void onBindViewHolder(CustomViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CustomViewHolder holder, int position) {
         float rating = dataList.get(position).getMamanguoId();
         holder.textUser.setText(dataList.get(position).getFullName());
         holder.ratingText.setText(String.format(view.getContext().getString(R.string.mamanguo_rating), rating));
         holder.mamanguoId.setText(String.format(Locale.getDefault(), "%d",dataList.get(position).getMamanguoId()));
         holder.ratingBar.setRating(dataList.get(position).getRating());
     }
+
 
 //Calculate the item count for the RecylerView//
 

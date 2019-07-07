@@ -1,7 +1,10 @@
 package com.example.mamanguo.chooseServices.helperClasses;
 
+import android.content.Intent;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public class Order {
@@ -15,6 +18,12 @@ public class Order {
     public static Map<String, Integer> serviceCount = new HashMap<>();
     public static Map<String, Integer> serviceTotal = new HashMap<>();
     public static Map<String, Integer> serviceUnitPrice= new HashMap<>();
+
+    public static int getMamanguoId() {
+        return mamanguoId;
+    }
+
+    public static int mamanguoId;
 
     public static double getLatitude() {
         return latitude;
@@ -76,4 +85,24 @@ public class Order {
         return arrayList;
     }
 
+    public static String createStringFromList(ArrayList<Integer>list)
+    {
+        StringBuilder newString = new StringBuilder();
+
+        for(Integer i : list) {
+            newString.append(i);
+            newString.append(",");
+        }
+        return newString.toString();
+    }
+
+    public static String createStringFromArray(String[] array) {
+        StringBuilder newString = new StringBuilder();
+
+        for(String str : array) {
+            newString.append(str);
+            newString.append(",");
+        }
+        return newString.toString();
+    }
 }

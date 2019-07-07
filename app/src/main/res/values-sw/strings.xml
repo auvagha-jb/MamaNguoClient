@@ -64,4 +64,5 @@
     <string name="update_profile">Update Profile</string>
     <string name="order_title_ext">Make an order</string>
     <string name="make_order_subtitle_text">Find a laundry lady on demand in three easy steps.</string>
+    <string name="mamanguo_rating">Rating: %d</string>
 </resources>

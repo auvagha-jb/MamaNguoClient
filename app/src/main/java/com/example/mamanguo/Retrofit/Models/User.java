@@ -1,4 +1,4 @@
-package com.example.mamanguo.Retrofit;
+package com.example.mamanguo.Retrofit.Models;
 
 public class User {
 
@@ -64,5 +64,13 @@ public class User {
     public User(String email, String password) {
         this.email = email;
         this.password = password;
+    }
+
+    public User(int userId, String firstName, String lastName, String phoneNumber, String email) {
+        this.userId = userId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
     }
 }

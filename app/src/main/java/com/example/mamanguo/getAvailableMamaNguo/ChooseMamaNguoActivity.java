@@ -2,31 +2,35 @@ package com.example.mamanguo.getAvailableMamaNguo;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.mamanguo.R;
+import com.example.mamanguo.Retrofit.Models.MamaNguo;
 import com.example.mamanguo.Retrofit.MamaNguoApi;
 import com.example.mamanguo.Retrofit.RetrofitClient;
+import com.example.mamanguo.chooseServices.helperClasses.Order;
 import com.example.mamanguo.ui.Activities.MapViewActivity;
 
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity implements MyAdapter.OnItemClickListener {
+public class ChooseMamaNguoActivity extends AppCompatActivity implements MyAdapter.OnItemClickListener {
 
     private MyAdapter myAdapter;
     private RecyclerView myRecyclerView;
-    private static String TAG = MainActivity.class.getSimpleName();
+    private static String TAG = ChooseMamaNguoActivity.class.getSimpleName();
     private Button btn_history;
-    private List<MamaNguo>listData;
+    private List<MamaNguo> listData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.OnItemC
         btn_history = findViewById(R.id.button_viewHistory);
 
         //Create a handler for the RetrofitInstance interface//
-        MamaNguoApi retrofitInstance = RetrofitClient.getRetrofitInstance().create(MamaNguoApi.class);
+        MamaNguoApi retrofitInstance = RetrofitClient.createRetrofitInstance().create(MamaNguoApi.class);
         Call<List<MamaNguo>> call = retrofitInstance.getMamaNguo();
 
         //Execute the request asynchronously//
@@ -46,48 +50,47 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.OnItemC
                 Log.d(TAG, "onResponse: Response Received");
                 listData = response.body();
                 loadDataList(listData);
+                attachListeners();
             }
 
             @Override
             //Handle execution failures//
             public void onFailure(Call<List<MamaNguo>> call, Throwable throwable) {
                 //If the request fails, then display the following toast//
-                Log.d(TAG, String.format("onFailure: %s", throwable));
-                Toast.makeText(MainActivity.this, "Unable to load users", Toast.LENGTH_SHORT).show();
+                Log.e(TAG, String.format("onFailure: %s", throwable));
+                Toast.makeText(ChooseMamaNguoActivity.this, "Unable to load users", Toast.LENGTH_SHORT).show();
             }
         });
-        attachListener();
+        attachListeners();
     }
 
     //Display the retrieved data as a list//
     private void loadDataList(List<MamaNguo> usersList) {
         //Get a reference to the RecyclerView//
-        myRecyclerView = findViewById(R.id.myRecyclerView);
-        myAdapter = new MyAdapter(usersList);
+        myRecyclerView = findViewById(R.id.recyclerView);
+        myAdapter = new MyAdapter(usersList,this);
 
         //Use a LinearLayoutManager with default vertical orientation//
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ChooseMamaNguoActivity.this);
         myRecyclerView.setLayoutManager(layoutManager);
 
         //Set the Adapter to the RecyclerView//
         myRecyclerView.setAdapter(myAdapter);
     }
 
-    private void attachListener() {
+    private void attachListeners() {
         /* On click listeners: */
-        btn_history.setOnClickListener(v -> {
+       /* btn_history.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), HistoryActivity.class);
             startActivity(intent);
-        });
-
-        myAdapter.setOnItemClickListener(position -> {
-            String itemSelected = listData.get(position).getFullName();
-            Toast.makeText(this, itemSelected, Toast.LENGTH_SHORT).show();
-        });
+        });*/
     }
 
     @Override
     public void onCardClick(int position) {
+        int mamanguoSelected = listData.get(position).getMamanguoId();
+        Order.mamanguoId = mamanguoSelected;
+        Toast.makeText(this, String.format(Locale.getDefault(), "Mamanguo: %d", mamanguoSelected), Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, MapViewActivity.class);
         startActivity(intent);
     }

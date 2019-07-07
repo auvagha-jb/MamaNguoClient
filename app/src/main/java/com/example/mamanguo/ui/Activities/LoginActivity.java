@@ -17,7 +17,7 @@ import com.example.mamanguo.R;
 import com.example.mamanguo.Register.SignUpActivity;
 import com.example.mamanguo.Retrofit.MamaNguoApi;
 import com.example.mamanguo.Retrofit.RetrofitClient;
-import com.example.mamanguo.Retrofit.User;
+import com.example.mamanguo.Retrofit.Models.User;
 import com.example.mamanguo.helpers.UIFeatures;
 import com.example.mamanguo.sharedPreferences.UserData;
 
@@ -50,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
-        retrofitInstance = RetrofitClient.getRetrofitInstance().create(MamaNguoApi.class);
+        retrofitInstance = RetrofitClient.createRetrofitInstance().create(MamaNguoApi.class);
         mContext = LoginActivity.this;
         initComponents();
         attachListeners();

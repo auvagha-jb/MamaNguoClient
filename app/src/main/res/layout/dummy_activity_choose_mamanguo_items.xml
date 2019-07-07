@@ -15,27 +15,27 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/user"
+            android:id="@+id/tv_parentName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/rating_text"
+            android:id="@+id/textView_rating"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:textSize="12sp" />
 
         <TextView
-            android:id="@+id/mamanguo_id"
+            android:id="@+id/field_value"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="visible" />
+            android:visibility="gone" />
 
         <RatingBar
-            android:id="@+id/rating_bar"
+            android:id="@+id/ratingBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:numStars="5"

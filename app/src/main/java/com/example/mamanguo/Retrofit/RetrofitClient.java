@@ -14,7 +14,7 @@ public class RetrofitClient {
 
 //Create the Retrofit instance//
 
-    public static Retrofit getRetrofitInstance() {
+    public static Retrofit createRetrofitInstance() {
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
@@ -24,5 +24,9 @@ public class RetrofitClient {
                     .build();
         }
         return retrofit;
+    }
+
+    public static MamaNguoApi getRetrofitInstance() {
+        return RetrofitClient.createRetrofitInstance().create(MamaNguoApi.class);
     }
 }

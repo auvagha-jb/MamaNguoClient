@@ -1,4 +1,4 @@
-package com.example.mamanguo.getAvailableMamaNguo;
+package com.example.mamanguo.Retrofit.Models;
 
 public class MamaNguo {
 
@@ -6,7 +6,7 @@ public class MamaNguo {
     private String firstName;
     private String lastName;
     private String phoneNumber;
-    private int rating;
+    private float rating;
 
     public int getMamanguoId() {
         return mamanguoId;
@@ -28,7 +28,7 @@ public class MamaNguo {
         return phoneNumber;
     }
 
-    public int getRating() {
+    public float getRating() {
         return rating;
     }
 }

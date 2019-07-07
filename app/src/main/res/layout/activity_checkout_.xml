@@ -69,4 +69,13 @@
 
     </TableLayout>
 
+    <Button
+        android:id="@+id/make_request_btn"
+        style="@style/btn_next"
+        android:layout_marginBottom="8dp"
+        android:text="@string/btn_checkout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

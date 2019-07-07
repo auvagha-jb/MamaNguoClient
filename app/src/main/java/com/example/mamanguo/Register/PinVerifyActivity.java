@@ -16,7 +16,7 @@ import com.alimuzaffar.lib.pin.PinEntryEditText;
 import com.example.mamanguo.R;
 import com.example.mamanguo.Retrofit.MamaNguoApi;
 import com.example.mamanguo.Retrofit.RetrofitClient;
-import com.example.mamanguo.Retrofit.User;
+import com.example.mamanguo.Retrofit.Models.User;
 import com.example.mamanguo.helpers.UIFeatures;
 import com.example.mamanguo.sharedPreferences.UserData;
 import com.example.mamanguo.ui.Activities.BottomNavActivity;
@@ -63,7 +63,7 @@ public class PinVerifyActivity extends AppCompatActivity {
         resendLink = findViewById(R.id.resend_link);
         mAuth = FirebaseAuth.getInstance();
         progressBar = findViewById(R.id.progressbar);
-        retrofitInstance = RetrofitClient.getRetrofitInstance().create(MamaNguoApi.class);
+        retrofitInstance = RetrofitClient.createRetrofitInstance().create(MamaNguoApi.class);
 
         try {
             Bundle extras = getIntent().getExtras();

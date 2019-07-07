@@ -6,7 +6,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.mamanguo.R;
-import com.example.mamanguo.chooseMamaNguo.ChooseMamaNguoActivity;
+import com.example.mamanguo.chooseMamaNguo.DummyChooseMamaNguoActivity;
+import com.example.mamanguo.getAvailableMamaNguo.ChooseMamaNguoActivity;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.viewpager.widget.ViewPager;
@@ -35,10 +36,16 @@ public class ServicesActivity extends AppCompatActivity {
 
     public void createIntent(View view) {
         //Exit function if no items have been selected
-        if(orderItems.length<1) {
+        if(orderItems != null) {
+            if(orderItems.length<1) {
+                Toast.makeText(this, "Pick at least one item", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        } else {
             Toast.makeText(this, "Pick at least one item", Toast.LENGTH_SHORT).show();
             return;
         }
+
 
         Bundle extras = new Bundle();
         extras.putStringArray("ORDER_ITEMS", orderItems);

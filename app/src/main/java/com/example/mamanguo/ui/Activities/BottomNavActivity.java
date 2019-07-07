@@ -1,5 +1,6 @@
 package com.example.mamanguo.ui.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.mamanguo.R;
@@ -26,8 +27,16 @@ public class BottomNavActivity extends AppCompatActivity implements BottomNaviga
         navView.setOnNavigationItemSelectedListener(this);
 
         //Set the default fragment
-        navView.setSelectedItemId(R.id.navigation_home);
-        loadFragment(new HomeFragment());
+        Bundle extras = getIntent().getExtras();
+        if(extras != null) {
+            if(extras.containsKey("ORDER_COMPLETE")) {
+                loadFragment(new OrdersFragment());
+                navView.setSelectedItemId(R.id.navigation_orders);
+            }
+        } else {
+            loadFragment(new HomeFragment());
+            navView.setSelectedItemId(R.id.navigation_home);
+        }
     }
 
     @Override

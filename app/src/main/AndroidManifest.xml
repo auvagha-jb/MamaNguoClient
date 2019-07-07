@@ -28,8 +28,8 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_api_key" />
 
-        <activity android:name=".chooseMamaNguo.ChooseMamaNguoActivity" />
-        <activity android:name=".getAvailableMamaNguo.MainActivity" />
+        <activity android:name=".chooseMamaNguo.DummyChooseMamaNguoActivity" />
+        <activity android:name=".getAvailableMamaNguo.ChooseMamaNguoActivity" />
         <activity android:name=".Register.PinVerifyActivity" />
         <activity android:name=".Register.EnterMobileActivity" />
         <activity android:name=".Register.SignUpActivity" />
