@@ -10,7 +10,7 @@
 
     <com.google.android.material.card.MaterialCardView
         style="@style/Widget.MaterialComponents.CardView"
-        android:id="@+id/order_cardView"
+        android:id="@+id/profile_cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -39,7 +39,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="5dp"
-                android:text="Make an order"
+                android:text="@string/order_card_title"
                 android:textSize="24sp" />
 
             <TextView
@@ -48,13 +48,13 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="5dp"
-                android:text="Find a laundry lady on demand in three easy steps."
+                android:text="@string/order_card_subtitle"
                 android:textSize="12sp" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/offer_cardView"
+        android:id="@+id/logout_cardView"
         style="@style/Widget.MaterialComponents.CardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -64,7 +64,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/order_cardView"
+        app:layout_constraintTop_toBottomOf="@+id/profile_cardView"
         app:layout_constraintVertical_bias="0.100000024">
 
         <LinearLayout
@@ -77,7 +77,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:scaleType="fitCenter"
-                android:src="@mipmap/referrral"
+                android:src="@mipmap/referral"
                 android:background="@color/accent"/>
 
             <TextView
@@ -86,7 +86,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="5dp"
-                android:text="Make a referral"
+                android:text="@string/referral_card_title"
                 android:textSize="24sp" />
 
             <TextView
@@ -95,7 +95,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="5dp"
-                android:text="Stand a chance to get a discount each time someone uses your referral code"
+                android:text="@string/referral_card_subtitle"
                 android:textSize="12sp" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>

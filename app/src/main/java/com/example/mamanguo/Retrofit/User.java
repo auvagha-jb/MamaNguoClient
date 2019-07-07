@@ -53,7 +53,7 @@ public class User {
     }
 
     public User(String firstName, String lastName, String phoneNumber, String email, String password) {
-        this.roleId = 1;
+        this.roleId = 2;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;

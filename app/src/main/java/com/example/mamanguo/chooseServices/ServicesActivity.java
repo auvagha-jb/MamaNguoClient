@@ -1,6 +1,5 @@
 package com.example.mamanguo.chooseServices;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -8,7 +7,6 @@ import android.widget.Toast;
 
 import com.example.mamanguo.R;
 import com.example.mamanguo.chooseMamaNguo.ChooseMamaNguoActivity;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.viewpager.widget.ViewPager;
@@ -16,11 +14,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mamanguo.chooseServices.ui.main.SectionsPagerAdapter;
 
-import static com.example.mamanguo.chooseServices.helperClasses.Bill.getBillTotal;
-import static com.example.mamanguo.chooseServices.helperClasses.Bill.orderItems;
-import static com.example.mamanguo.chooseServices.helperClasses.Bill.orderQuantity;
-import static com.example.mamanguo.chooseServices.helperClasses.Bill.orderSubtotal;
-import static com.example.mamanguo.chooseServices.helperClasses.Bill.unitPrice;
+import static com.example.mamanguo.chooseServices.helperClasses.Order.getBillTotal;
+import static com.example.mamanguo.chooseServices.helperClasses.Order.orderItems;
+import static com.example.mamanguo.chooseServices.helperClasses.Order.orderQuantity;
+import static com.example.mamanguo.chooseServices.helperClasses.Order.orderSubtotal;
+import static com.example.mamanguo.chooseServices.helperClasses.Order.unitPrice;
 
 public class ServicesActivity extends AppCompatActivity {
 

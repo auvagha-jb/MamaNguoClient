@@ -1,7 +1,6 @@
 package com.example.mamanguo.chooseServices.serviceCategories;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,19 +15,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mamanguo.R;
-import com.example.mamanguo.chooseMamaNguo.ChooseMamaNguoActivity;
-import com.example.mamanguo.chooseServices.helperClasses.Bill;
+import com.example.mamanguo.chooseServices.helperClasses.Order;
 import com.example.mamanguo.chooseServices.helperClasses.ServicesLists;
 import com.example.mamanguo.chooseServices.helperClasses.RecyclerDataAdapter;
 
 import java.util.Map;
 
-import static com.example.mamanguo.chooseServices.helperClasses.Bill.getBillTotal;
-import static com.example.mamanguo.chooseServices.helperClasses.Bill.mapKeyToArray;
-import static com.example.mamanguo.chooseServices.helperClasses.Bill.mapValueToArray;
-import static com.example.mamanguo.chooseServices.helperClasses.Bill.orderItems;
-import static com.example.mamanguo.chooseServices.helperClasses.Bill.orderQuantity;
-import static com.example.mamanguo.chooseServices.helperClasses.Bill.orderSubtotal;
+import static com.example.mamanguo.chooseServices.helperClasses.Order.getBillTotal;
+import static com.example.mamanguo.chooseServices.helperClasses.Order.mapKeyToArray;
+import static com.example.mamanguo.chooseServices.helperClasses.Order.mapValueToArray;
 
 public class TopsFragment extends Fragment implements RecyclerDataAdapter.ServicesSelectedListener {
     private RecyclerView mRecyclerView;
@@ -56,10 +51,10 @@ public class TopsFragment extends Fragment implements RecyclerDataAdapter.Servic
     }
 
     public void updateOrder(Map<String, Integer> unitPrice, Map<String, Integer> serviceCount, Map<String, Integer> serviceTotal) {
-        Bill.orderItems = mapKeyToArray(serviceCount);
-        Bill.unitPrice = mapValueToArray(unitPrice);
-        Bill.orderQuantity = mapValueToArray(serviceCount);
-        Bill.orderSubtotal = mapValueToArray(serviceTotal);
+        Order.orderItems = mapKeyToArray(serviceCount);
+        Order.unitPrice = mapValueToArray(unitPrice);
+        Order.orderQuantity = mapValueToArray(serviceCount);
+        Order.orderSubtotal = mapValueToArray(serviceTotal);
         Toast.makeText(mContext, String.format(getString(R.string.bill_total_toast), getBillTotal()), Toast.LENGTH_SHORT).show();
     }
 

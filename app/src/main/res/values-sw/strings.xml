@@ -61,4 +61,7 @@
     <string name="quantity_header">Quantity</string>
     <string name="summary_title">Order Summary</string>
     <string name="grand_total_text">GRAND TOTAL</string>
+    <string name="update_profile">Update Profile</string>
+    <string name="order_title_ext">Make an order</string>
+    <string name="make_order_subtitle_text">Find a laundry lady on demand in three easy steps.</string>
 </resources>

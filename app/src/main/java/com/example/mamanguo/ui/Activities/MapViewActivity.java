@@ -28,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mamanguo.R;
+import com.example.mamanguo.chooseServices.helperClasses.Order;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -44,7 +45,9 @@ import com.google.android.gms.tasks.Task;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
+import static com.example.mamanguo.chooseServices.helperClasses.Order.setLocation;
 import static com.example.mamanguo.helpers.Constants.ERROR_DIALOG_REQUEST;
 import static com.example.mamanguo.helpers.Constants.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION;
 import static com.example.mamanguo.helpers.Constants.PERMISSIONS_REQUEST_ENABLE_GPS;
@@ -56,21 +59,6 @@ public class MapViewActivity extends AppCompatActivity implements OnMapReadyCall
     private EditText searchBar;
     private ImageView mGps;
 
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public LatLng getCoordinates() {
-        return coordinates;
-    }
-
-    public void setCoordinates(LatLng coordinates) {
-        this.coordinates = coordinates;
-    }
 
     private String location;
     private LatLng coordinates;
@@ -92,12 +80,9 @@ public class MapViewActivity extends AppCompatActivity implements OnMapReadyCall
         mGps = findViewById(R.id.ic_gps);
         btn_checkout = findViewById(R.id.btn_checkout);
 
-        btn_checkout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), CheckoutActivity.class);
-                startActivity(intent);
-            }
+        btn_checkout.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), CheckoutActivity.class);
+            startActivity(intent);
         });
     }
 
@@ -146,10 +131,36 @@ public class MapViewActivity extends AppCompatActivity implements OnMapReadyCall
             String newAddress = address.getAddressLine(0);
             moveCamera(coordinates, DEFAULT_ZOOM, newAddress);
 
-            setLocation(newAddress);
-            setCoordinates(coordinates);
+            Order.setLocation(newAddress);
+            Order.setLatitude(address.getLatitude());
+            Order.setLongitude(address.getLongitude());
+
             Log.d(TAG, "geoLocate: " + newAddress + ", " + coordinates);
         }
+    }
+
+    public String getLocationFromCoordinates(double latitude, double longitude) {
+        Geocoder geocoder = new Geocoder(MapViewActivity.this, Locale.getDefault());
+        String newAddress = null;
+        List<Address> list = new ArrayList<>();
+        try {
+            list = geocoder.getFromLocation(latitude, longitude, 1);
+        } catch (IOException e) {
+            Log.e(TAG, "geoLocate: IOException " + e.getMessage());
+        }
+
+        if (list.size() > 0) {
+            Address address = list.get(0);
+            Log.d(TAG, address.toString());
+            newAddress = address.getAddressLine(0);
+
+            Order.setLocation(newAddress);
+            Order.setLatitude(address.getLatitude());
+            Order.setLongitude(address.getLongitude());
+
+            Log.d(TAG, "geoLocate: " + newAddress);
+        }
+        return newAddress;
     }
 
     public void initGoogleMap(Bundle savedInstanceState) {
@@ -171,28 +182,33 @@ public class MapViewActivity extends AppCompatActivity implements OnMapReadyCall
 
             if (mLocationPermissionGranted) {
                 Task location = mFusedLocationClient.getLastLocation();
-                location.addOnCompleteListener(new OnCompleteListener() {
-                    @Override
-                    public void onComplete(@NonNull Task task) {
-                        if (task.isSuccessful()) {
-                            Location currentLocation = (Location) task.getResult();
+                location.addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Location currentLocation = (Location) task.getResult();
 
-                            if (currentLocation != null) {
-                                LatLng coordinates = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-                                moveCamera(coordinates, DEFAULT_ZOOM, "My Location");
+                        if (currentLocation != null) {
+                            LatLng coordinates = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+                            moveCamera(coordinates, DEFAULT_ZOOM, "My Location");
+                            String locationName = getLocationFromCoordinates(
+                                    currentLocation.getLatitude(),
+                                    currentLocation.getLongitude()
+                            );
 
-                                //Set this as my location
-                                searchBar.setText(MapViewActivity.this.getString(R.string.my_location));
-                                setLocation("Current Location");
-                                setCoordinates(coordinates);
-                                Log.d(TAG, "onComplete: Found location " + coordinates);
-                            } else {
-                                Toast.makeText(MapViewActivity.this, "Finding location...", Toast.LENGTH_SHORT).show();
-                            }
+                            //Set this as my location
+                            searchBar.setText(MapViewActivity.this.getString(R.string.my_location));
+                            setLocation(locationName);
 
+                            Order.setLocation(locationName);
+                            Order.setLatitude(currentLocation.getLatitude());
+                            Order.setLongitude(currentLocation.getLongitude());
+
+                            Log.d(TAG, "onComplete: Found location " + coordinates);
                         } else {
-                            Log.d(TAG, "onComplete: Location is null");
+                            Toast.makeText(MapViewActivity.this, "Finding location...", Toast.LENGTH_SHORT).show();
                         }
+
+                    } else {
+                        Log.d(TAG, "onComplete: Location is null");
                     }
                 });
 

@@ -6,11 +6,13 @@ import com.example.mamanguo.R;
 import com.example.mamanguo.ui.Fragments.HomeFragment;
 import com.example.mamanguo.ui.Fragments.OrdersFragment;
 import com.example.mamanguo.ui.Fragments.ProfileEditFragment;
+import com.example.mamanguo.ui.Fragments.ProfileOptionsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.MenuItem;
 
@@ -40,7 +42,7 @@ public class BottomNavActivity extends AppCompatActivity implements BottomNaviga
                 fragment = new OrdersFragment();
                 break;
             case R.id.navigation_profile:
-                fragment = new ProfileEditFragment();
+                fragment = new ProfileOptionsFragment();
                 break;
         }
         return loadFragment(fragment);
@@ -55,5 +57,15 @@ public class BottomNavActivity extends AppCompatActivity implements BottomNaviga
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        if(fragmentManager.getBackStackEntryCount() > 1) {
+            fragmentManager.popBackStack();
+        } else {
+            super.onBackPressed();
+        }
     }
 }

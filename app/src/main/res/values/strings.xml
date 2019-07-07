@@ -73,4 +73,17 @@
     <string name="quantity_header">Quantity</string>
     <string name="summary_title">Order Summary</string>
     <string name="grand_total_text">GRAND TOTAL</string>
+    <string name="update_profile">Update Profile</string>
+    <string name="phone_number_label">Phone number</string>
+    <string name="my_profile_title">My profile</string>
+    <string name="referral_subtitle_text">Help a friend in need to get a reliable Laundry Lady</string>
+    <string name="referral_title_text">Make a referral</string>
+    <string name="order_title_ext">Make an order</string>
+    <string name="make_order_subtitle_text">Find a laundry lady on demand in three easy steps.</string>
+    <string name="log_out_cardView_text">LOG OUT</string>
+    <string name="referral_card_title">Make a referral</string>
+    <string name="order_card_subtitle">Find a laundry lady on demand in three easy steps.</string>
+    <string name="order_card_title">Make an order</string>
+    <string name="referral_card_subtitle">Help a friend in need find a reliable laundry lady</string>
+    <string name="update_profile_btn">Update profile</string>
 </resources>

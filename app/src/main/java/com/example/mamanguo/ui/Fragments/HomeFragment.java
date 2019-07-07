@@ -24,7 +24,7 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View RootView = inflater.inflate(R.layout.fragment_home, container, false);
-        order_cardView = RootView.findViewById(R.id.order_cardView);
+        order_cardView = RootView.findViewById(R.id.profile_cardView);
         mContext = getActivity();
 
         order_cardView.setOnClickListener(v -> {

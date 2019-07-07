@@ -73,14 +73,15 @@ public class LoginActivity extends AppCompatActivity {
     public void login() {
         Log.d(TAG, "Login");
 
-        progressDialog = UIFeatures.showProgressDialog(mContext, "Authenticating...");
         if (validate()) {
+            progressDialog = UIFeatures.showProgressDialog(mContext, "Authenticating...");
             loginButton.setEnabled(false);
             String email = emailText.getText().toString();
             String password = passwordText.getText().toString();
             userLogin(email, password);
+            UIFeatures.dismissProgressDialog(progressDialog);
         }
-        UIFeatures.dismissProgressDialog(progressDialog);
+
     }
 
 
@@ -139,6 +140,7 @@ public class LoginActivity extends AppCompatActivity {
                 passwordText.setError(message);
                 break;
             default:
+                Toast.makeText(mContext, "Invalid login credentials", Toast.LENGTH_SHORT).show();
                 break;
         }
     }

@@ -38,49 +38,49 @@ public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapte
     //e.g. Shirts: 2
     private void setServiceQuantity(String item, int quantity) {
         //To eliminate possibility of having duplicate key entries
-        if (Bill.serviceCount.containsKey(item)) Bill.serviceCount.remove(item);
-        Bill.serviceCount.put(item, quantity);
+        if (Order.serviceCount.containsKey(item)) Order.serviceCount.remove(item);
+        Order.serviceCount.put(item, quantity);
     }
 
     private Map<String, Integer> getServiceCount() {
-        return Bill.serviceCount;
+        return Order.serviceCount;
     }
 
     //Shirts: sh. 255
     private void setServiceSubtotal(String item, int subtotal) {
         //To eliminate possibility of having duplicate key entries
-        if (Bill.serviceTotal.containsKey(item)) Bill.serviceTotal.remove(item);
-        Bill.serviceTotal.put(item, subtotal);
+        if (Order.serviceTotal.containsKey(item)) Order.serviceTotal.remove(item);
+        Order.serviceTotal.put(item, subtotal);
     }
 
     private void setUnitPrice(String item, int unitPrice) {
         //To eliminate possibility of having duplicate key entries
-        if (Bill.serviceUnitPrice.containsKey(item)) Bill.serviceUnitPrice.remove(item);
-        Bill.serviceUnitPrice.put(item, unitPrice);
+        if (Order.serviceUnitPrice.containsKey(item)) Order.serviceUnitPrice.remove(item);
+        Order.serviceUnitPrice.put(item, unitPrice);
     }
 
     private Map<String, Integer> getServiceTotal() {
-        return Bill.serviceTotal;
+        return Order.serviceTotal;
     }
 
     private void removeItem(String item) {
-        if (Bill.serviceCount.containsKey(item)) Bill.serviceCount.remove(item);
-        if (Bill.serviceTotal.containsKey(item)) Bill.serviceTotal.remove(item);
-        if (Bill.serviceUnitPrice.containsKey(item)) Bill.unitPrice.remove(item);
+        if (Order.serviceCount.containsKey(item)) Order.serviceCount.remove(item);
+        if (Order.serviceTotal.containsKey(item)) Order.serviceTotal.remove(item);
+        if (Order.serviceUnitPrice.containsKey(item)) Order.unitPrice.remove(item);
     }
 
     private Map<String, Integer> getUnitPrice() {
-        return Bill.serviceUnitPrice;
+        return Order.serviceUnitPrice;
     }
 
     private void updateBillTotal() {
         int bill_total = 0;
         //Returns set view
-        Set<Map.Entry<String, Integer>> set = Bill.serviceTotal.entrySet();
+        Set<Map.Entry<String, Integer>> set = Order.serviceTotal.entrySet();
         for (Map.Entry<String, Integer> me : set) {
             bill_total += me.getValue();
         }
-        Bill.setBillTotal(bill_total);
+        Order.setBillTotal(bill_total);
     }
 
 
