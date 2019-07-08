@@ -54,7 +54,7 @@
     <string name="socks">Soksi</string>
     <string name="ties">Tai</string>
     <string name="jumpsuit">Jumpsuit</string>
-    <string name="mamanguo_rating">Rating: %d</string>
+    <string name="mamanguo_rating">Rating: %.1f</string>
     <string name="item_header">Nguo</string>
     <string name="unit_price_header">Bei ya nguo moja</string>
     <string name="subtotal_header">Jumla</string>
@@ -83,5 +83,9 @@
     <string name="referral_card_subtitle">Saidia mwenzako kupata MamaNguo mzuri</string>
     <string name="referral_subtitle_text">Saidia mwenzako kupata MamaNguo mzur</string>
     <string name="referral_title_text">Rufaa MamaNguo</string>
->>>>>>> eff1febbced817b18dff015eb2eb836801012037
+    <string name="comment_label">Maoni</string>
+    <string name="mamanguo_name">Alliyekuhudumia</string>
+    <string name="hello_blank_fragment" translatable="false">Jambo dunia</string>
+    <string name="rateActionText">Tathmini</string>
+    <string name="rating_success_toast">Asante kwa tathmini</string>
 </resources>

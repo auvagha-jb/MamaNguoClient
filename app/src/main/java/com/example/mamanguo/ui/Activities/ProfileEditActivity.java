@@ -101,7 +101,6 @@ public class ProfileEditActivity extends AppCompatActivity {
             public void onResponse(Call<User> call, Response<User> response) {
                 if (!response.isSuccessful()) {
                     Toast.makeText(ProfileEditActivity.this, "Something went wrong. Please try again later.", Toast.LENGTH_SHORT).show();
-                    Log.e(TAG, Objects.requireNonNull(response.body()).getMessage());
                     return;
                 }
 
@@ -109,6 +108,8 @@ public class ProfileEditActivity extends AppCompatActivity {
                     //Store user data in shared preferences
                     saveUserData();
                     Toast.makeText(ProfileEditActivity.this, "Updated details", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(ProfileEditActivity.this, "Something is not right", Toast.LENGTH_SHORT).show();
                 }
 
             }

@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class BottomNavActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -32,6 +33,8 @@ public class BottomNavActivity extends AppCompatActivity implements BottomNaviga
             if(extras.containsKey("ORDER_COMPLETE")) {
                 loadFragment(new OrdersFragment());
                 navView.setSelectedItemId(R.id.navigation_orders);
+            } else if(extras.containsKey("")) {
+                Toast.makeText(BottomNavActivity.this, getString(R.string.rating_success_toast), Toast.LENGTH_SHORT).show();
             }
         } else {
             loadFragment(new HomeFragment());

@@ -46,7 +46,6 @@ public class RatingActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         retrofitInstance = RetrofitClient.getRetrofitInstance();
 
-
         SharedPreferences sharedPreferences = getSharedPreferences(USER_DATA, MODE_PRIVATE);
         userId = sharedPreferences.getInt(USER_ID, 0);
 
@@ -55,12 +54,10 @@ public class RatingActivity extends AppCompatActivity {
             mamanguoName = extras.getString("MAMANGUO_NAME");
         }
 
-
         commentText = findViewById(R.id.input_comment);
         mamanguoNameText = findViewById(R.id.input_mamanguo_name);
         ratingBar = findViewById(R.id.rating_bar);
         buttonRate = findViewById(R.id.btn_rate);
-
         mamanguoNameText.setText(mamanguoName);
 
         buttonRate.setOnClickListener(v -> addRating(
@@ -81,8 +78,8 @@ public class RatingActivity extends AppCompatActivity {
                     Toast.makeText(RatingActivity.this, "Something went wrong. Please try again later.", Toast.LENGTH_SHORT).show();
                     Log.e(TAG, Objects.requireNonNull(response.body()).getMessage());
                 } else {
-                    Toast.makeText(RatingActivity.this, "Rating successful", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(RatingActivity.this, BottomNavActivity.class);
+                    intent.putExtra("RATING_SUCCESSFUL", true);
                     startActivity(intent);
                 }
             }

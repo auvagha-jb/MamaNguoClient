@@ -86,8 +86,9 @@
     <string name="order_card_title">Make an order</string>
     <string name="referral_card_subtitle">Help a friend in need find a reliable laundry lady</string>
     <string name="update_profile_btn">Update profile</string>
-    <string name="mamanguo_rating">Rating: %.2f</string>
+    <string name="mamanguo_rating">Rating: %.1f</string>
     <string name="mamanguo_name">Served by</string>
     <string name="comment_label">Comment</string>
     <string name="rateActionText">RATE</string>
+    <string name="rating_success_toast">Rating successful</string>
 </resources>

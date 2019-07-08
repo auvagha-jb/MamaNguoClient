@@ -45,7 +45,7 @@
             android:isIndicator="false"
             android:numStars="5"
             android:progressTint="@color/ratingBar"
-            android:stepSize="0.1" />
+            android:stepSize="1" />
 
         <!-- Name Label -->
         <com.google.android.material.textfield.TextInputLayout
