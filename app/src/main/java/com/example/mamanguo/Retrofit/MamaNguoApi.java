@@ -11,6 +11,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Path;
 
 public interface MamaNguoApi {
 
@@ -20,7 +21,7 @@ public interface MamaNguoApi {
 
     //Display user's history of Mamanguo
     @GET("getHistory/{userId}")
-    Call<List<MamaNguo>> getHistory(int userId);
+    Call<List<MamaNguo>> getHistory(@Path("userId")int userId);
 
     //Registration validation
     @POST("emailExists")

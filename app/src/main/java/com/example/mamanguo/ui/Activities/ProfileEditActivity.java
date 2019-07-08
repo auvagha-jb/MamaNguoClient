@@ -14,6 +14,7 @@ import com.example.mamanguo.R;
 import com.example.mamanguo.Retrofit.MamaNguoApi;
 import com.example.mamanguo.Retrofit.RetrofitClient;
 import com.example.mamanguo.Retrofit.Models.User;
+import com.example.mamanguo.sharedPreferences.UserData;
 
 import java.util.Objects;
 
@@ -49,25 +50,32 @@ public class ProfileEditActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_edit);
-        retrofitInstance = RetrofitClient.getRetrofitInstance();
+        retrofitInstance = RetrofitClient.createRetrofitInstance().create(MamaNguoApi.class);
         firstName_input = findViewById(R.id.input_firstName);
         lastName_input = findViewById(R.id.input_lastName);
         email_input = findViewById(R.id.input_email);
         phoneNumber_input = findViewById(R.id.input_phone_number);
         btnUpdate = findViewById(R.id.btn_update);
 
-        btnUpdate.setOnClickListener(v -> updateProfile(userId,firstName,lastName,phoneNumber,email));
+        btnUpdate.setOnClickListener(v -> updateProfile());
         getUserData();
     }
 
     private void getUserData() {
-        SharedPreferences sharedPreferences = getSharedPreferences(USER_DATA, mContext.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(USER_DATA, MODE_PRIVATE);
         userId = sharedPreferences.getInt(USER_ID, 0);
         firstName = sharedPreferences.getString(FIRST_NAME, "");
         lastName = sharedPreferences.getString(LAST_NAME, "");
         email = sharedPreferences.getString(EMAIL, "");
         phoneNumber = sharedPreferences.getString(PHONE_NUMBER, "");
         updateViews();
+    }
+
+    private void getFormData() {
+        firstName = firstName_input.getText().toString();
+        lastName = lastName_input.getText().toString();
+        email = email_input.getText().toString();
+        phoneNumber = phoneNumber_input.getText().toString();
     }
 
     private void updateViews() {
@@ -77,7 +85,14 @@ public class ProfileEditActivity extends AppCompatActivity {
         phoneNumber_input.setText(phoneNumber);
     }
 
-    private void updateProfile(int userId,String firstName, String lastName, String phoneNumber, String email) {
+    private void saveUserData() {
+        SharedPreferences sharedPreferences = getSharedPreferences(USER_DATA, MODE_PRIVATE);
+        UserData userData = new UserData(userId, firstName, lastName, email, phoneNumber);
+        userData.saveUserData(sharedPreferences);
+    }
+
+    private void updateProfile() {
+        getFormData();
         User user = new User(userId,firstName,lastName, phoneNumber, email);
         Call<User> call = retrofitInstance.updateProfile(user);
 
@@ -92,7 +107,8 @@ public class ProfileEditActivity extends AppCompatActivity {
 
                 if(Objects.requireNonNull(response.body()).getStatus()) {
                     //Store user data in shared preferences
-                    Toast.makeText(ProfileEditActivity.this, "Ypetails", Toast.LENGTH_SHORT).show();
+                    saveUserData();
+                    Toast.makeText(ProfileEditActivity.this, "Updated details", Toast.LENGTH_SHORT).show();
                 }
 
             }

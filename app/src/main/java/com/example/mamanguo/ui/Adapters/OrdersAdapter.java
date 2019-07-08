@@ -65,7 +65,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.CustomView
 //Construct a RecyclerView.ViewHolder//
     public CustomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        view = layoutInflater.inflate(R.layout.activity_choose_mamanguo_items, parent, false);
+        view = layoutInflater.inflate(R.layout.activity_order_items, parent, false);
         return new CustomViewHolder(view, mOnItemClickListener);
     }
 

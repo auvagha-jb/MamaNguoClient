@@ -58,7 +58,7 @@ public class OrdersFragment extends Fragment implements OrdersAdapter.OnItemClic
         SharedPreferences sharedPreferences = Objects.requireNonNull(mContext).getSharedPreferences(USER_DATA, mContext.MODE_PRIVATE);
         userId = sharedPreferences.getInt(USER_ID, 0);
         //Create a handler for the RetrofitInstance interface//
-        MamaNguoApi retrofitInstance = RetrofitClient.createRetrofitInstance().create(MamaNguoApi.class);
+        MamaNguoApi retrofitInstance = RetrofitClient.getRetrofitInstance();
         Call<List<MamaNguo>> call = retrofitInstance.getHistory(userId);
 
         //Execute the request asynchronously//
@@ -88,7 +88,7 @@ public class OrdersFragment extends Fragment implements OrdersAdapter.OnItemClic
     //Display the retrieved data as a list//
     private void loadDataList(List<MamaNguo> ordersList) {
         //Get a reference to the RecyclerView//
-        myRecyclerView = view.findViewById(R.id.recyclerView);
+        myRecyclerView = view.findViewById(R.id.myRecyclerView);
         ordersAdapter = new OrdersAdapter(ordersList,this);
 
         //Use a LinearLayoutManager with default vertical orientation//

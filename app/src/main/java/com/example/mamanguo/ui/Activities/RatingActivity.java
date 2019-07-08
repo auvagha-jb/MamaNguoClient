@@ -1,7 +1,5 @@
 package com.example.mamanguo.ui.Activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,6 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mamanguo.R;
 import com.example.mamanguo.Retrofit.MamaNguoApi;
@@ -28,11 +28,11 @@ import static com.example.mamanguo.helpers.Constants.USER_ID;
 public class RatingActivity extends AppCompatActivity {
 
     private EditText mamanguoNameText;
+    private EditText commentText;
     private String mamanguoName;
     private RatingBar ratingBar;
     private int userId;
     private int mamanguoId;
-    private String commentText;
     private Button buttonRate;
 
 
@@ -46,19 +46,26 @@ public class RatingActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         retrofitInstance = RetrofitClient.getRetrofitInstance();
 
+
         SharedPreferences sharedPreferences = getSharedPreferences(USER_DATA, MODE_PRIVATE);
         userId = sharedPreferences.getInt(USER_ID, 0);
+
         if(extras != null) {
-            mamanguoId = extras.getInt("MAMANGUO_ID");
+            mamanguoId = Objects.requireNonNull(extras).getInt("MAMANGUO_ID");
             mamanguoName = extras.getString("MAMANGUO_NAME");
         }
+
 
         commentText = findViewById(R.id.input_comment);
         mamanguoNameText = findViewById(R.id.input_mamanguo_name);
         ratingBar = findViewById(R.id.rating_bar);
+        buttonRate = findViewById(R.id.btn_rate);
+
+        mamanguoNameText.setText(mamanguoName);
 
         buttonRate.setOnClickListener(v -> addRating(
-                userId, mamanguoId, ratingBar.getNumStars(), commentText.getText().toString()));
+                userId, mamanguoId, ratingBar.getNumStars(),
+                commentText.getText().toString()));
 
     }
 
@@ -74,6 +81,7 @@ public class RatingActivity extends AppCompatActivity {
                     Toast.makeText(RatingActivity.this, "Something went wrong. Please try again later.", Toast.LENGTH_SHORT).show();
                     Log.e(TAG, Objects.requireNonNull(response.body()).getMessage());
                 } else {
+                    Toast.makeText(RatingActivity.this, "Rating successful", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(RatingActivity.this, BottomNavActivity.class);
                     startActivity(intent);
                 }
