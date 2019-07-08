@@ -38,7 +38,8 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.CustomView
         public final View myView;
         TextView textUser;
         TextView mamanguoId;
-        TextView ratingText;
+        TextView rateTextView;
+        TextView requestStatus;
         RatingBar ratingBar;
         OnItemClickListener onItemClickListener;
 
@@ -48,8 +49,8 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.CustomView
             this.onItemClickListener = onItemClickListener;
             textUser = myView.findViewById(R.id.user);
             mamanguoId = myView.findViewById(R.id.mamanguo_id);
-            ratingText = myView.findViewById(R.id.rating_text);
-            ratingBar = myView.findViewById(R.id.rating_bar);
+            rateTextView = myView.findViewById(R.id.rating_text);
+            requestStatus = myView.findViewById(R.id.request_status);
             myView.setOnClickListener(this);
         }
 
@@ -71,16 +72,13 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.CustomView
     //Set the data
     @Override
     public void onBindViewHolder(@NonNull CustomViewHolder holder, int position) {
-        float rating = dataList.get(position).getMamanguoId();
         holder.textUser.setText(dataList.get(position).getFullName());
-        holder.ratingText.setText(String.format(view.getContext().getString(R.string.mamanguo_rating), rating));
         holder.mamanguoId.setText(String.format(Locale.getDefault(), "%d",dataList.get(position).getMamanguoId()));
-        holder.ratingBar.setRating(dataList.get(position).getRating());
+        holder.requestStatus.setText(String.format("Order status: %s", dataList.get(position).getStatus()));
     }
 
 
-//Calculate the item count for the RecylerView//
-
+    //Calculate the item count for the RecylerView//
     @Override
     public int getItemCount() {
         return dataList.size();

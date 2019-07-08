@@ -71,7 +71,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.CustomViewHolder> 
 //Set the data//
 
     public void onBindViewHolder(CustomViewHolder holder, int position) {
-        float rating = dataList.get(position).getMamanguoId();
+        float rating = dataList.get(position).getRating();
         holder.textUser.setText(dataList.get(position).getFullName());
         holder.ratingText.setText(String.format(view.getContext().getString(R.string.mamanguo_rating), rating));
         holder.mamanguoId.setText(String.format(Locale.getDefault(), "%d",dataList.get(position).getMamanguoId()));

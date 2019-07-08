@@ -1,6 +1,7 @@
 package com.example.mamanguo.Retrofit;
 
 import com.example.mamanguo.Retrofit.Models.MamaNguo;
+import com.example.mamanguo.Retrofit.Models.Rating;
 import com.example.mamanguo.Retrofit.Models.User;
 
 import java.util.List;
@@ -40,4 +41,8 @@ public interface MamaNguoApi {
     //Make request
     @POST("makeRequest")
     Call <RequestedService> makeRequest(@Body RequestedService reqService);
+
+    //Add rating
+    @POST("addRating")
+    Call <Rating> addRating(@Body Rating rating);
 }

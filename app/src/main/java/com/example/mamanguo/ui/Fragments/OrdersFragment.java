@@ -1,6 +1,7 @@
 package com.example.mamanguo.ui.Fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,9 +22,12 @@ import com.example.mamanguo.Retrofit.MamaNguoApi;
 import com.example.mamanguo.Retrofit.RetrofitClient;
 import com.example.mamanguo.getAvailableMamaNguo.ChooseMamaNguoActivity;
 import com.example.mamanguo.Retrofit.Models.MamaNguo;
+import com.example.mamanguo.ui.Activities.MapViewActivity;
+import com.example.mamanguo.ui.Activities.RatingActivity;
 import com.example.mamanguo.ui.Adapters.OrdersAdapter;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 import retrofit2.Call;
@@ -106,5 +110,14 @@ public class OrdersFragment extends Fragment implements OrdersAdapter.OnItemClic
     @Override
     public void onCardClick(int position) {
         Toast.makeText(mContext, "Clicked", Toast.LENGTH_SHORT).show();
+        int mamanguoId= ordersData.get(position).getMamanguoId();
+        String mamanguoName= ordersData.get(position).getFullName();
+        Bundle extras = new Bundle();
+        extras.putInt("MAMANGUO_ID", mamanguoId);
+        extras.putString("MAMANGUO_NAME", mamanguoName);
+
+        Intent intent = new Intent(mContext, RatingActivity.class);
+        intent.putExtras(extras);
+        startActivity(intent);
     }
 }

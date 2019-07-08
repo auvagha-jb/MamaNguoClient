@@ -8,6 +8,12 @@ public class MamaNguo {
     private String phoneNumber;
     private float rating;
 
+    private String status;
+
+    public String getStatus() {
+        return status;
+    }
+
     public int getMamanguoId() {
         return mamanguoId;
     }
