@@ -4,9 +4,20 @@ public class MamaNguo {
 
     private int mamanguoId;
     private String firstName;
+
+    public boolean isAccepted() {
+        return accepted;
+    }
+
+    public boolean isCompleted() {
+        return completed;
+    }
+
     private String lastName;
     private String phoneNumber;
     private float rating;
+    private boolean accepted;
+    private boolean completed;
 
     private String status;
 

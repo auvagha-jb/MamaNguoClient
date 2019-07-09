@@ -23,6 +23,12 @@ public interface MamaNguoApi {
     @GET("getHistory/{userId}")
     Call<List<MamaNguo>> getHistory(@Path("userId")int userId);
 
+    @GET("hasAccepted/{userId}")
+    Call<MamaNguo> hasAccepted(@Path("userId")int userId);
+
+    @GET("isComplete/{userId}")
+    Call<MamaNguo> isComplete(@Path("userId")int userId);
+
     //Registration validation
     @POST("emailExists")
     Call <User> emailExists(String email);

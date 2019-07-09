@@ -76,7 +76,6 @@ public class RatingActivity extends AppCompatActivity {
             public void onResponse(Call<Rating> call, Response<Rating> response) {
                 if (!response.isSuccessful()) {
                     Toast.makeText(RatingActivity.this, "Something went wrong. Please try again later.", Toast.LENGTH_SHORT).show();
-                    Log.e(TAG, Objects.requireNonNull(response.body()).getMessage());
                 } else {
                     Intent intent = new Intent(RatingActivity.this, BottomNavActivity.class);
                     intent.putExtra("RATING_SUCCESSFUL", true);

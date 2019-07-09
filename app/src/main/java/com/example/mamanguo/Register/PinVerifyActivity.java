@@ -54,7 +54,6 @@ public class PinVerifyActivity extends AppCompatActivity {
     private String phoneNumber;
     private String password;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
